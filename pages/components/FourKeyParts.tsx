@@ -28,8 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
-
-export const FourKeyParts = () => {
+const FourKeyParts = () => {
   const classes = useStyles();
   return (
     <Container className={classes.root}>
@@ -123,3 +122,5 @@ export const FourKeyParts = () => {
     </Container>
   );
 };
+
+export default FourKeyParts;
