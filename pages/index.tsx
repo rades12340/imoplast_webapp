@@ -1,7 +1,7 @@
 import SwipperGallery from "./components/SwipperGallery";
 import FourKeyParts from "./components/FourKeyParts";
 import OurNumbers from "./components/OurNumbers";
-import { Quotes } from "./components/Quotes";
+import Quotes from "./components/Quotes";
 import Finance from "./components/Finance";
 import Footer from "./components/Footer";
 
