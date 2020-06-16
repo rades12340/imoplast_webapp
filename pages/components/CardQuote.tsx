@@ -44,7 +44,7 @@ export default () => {
           src="https://randomuser.me/api/portraits/men/21.jpg"
           className={classes.avatar}
         />
-        <Typography variant="h5" color="textSecondary" gutterBottom>
+        <Typography variant="h5" color="textSecondary">
           Marko Petrovic
         </Typography>
         <Typography variant="body2" color="textSecondary" gutterBottom>
