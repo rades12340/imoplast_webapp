@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export const OurNumbers = () => {
+const OurNumbers = () => {
   const classes = useStyles();
   return (
     <Container className={classes.root}>
@@ -132,3 +132,5 @@ export const OurNumbers = () => {
     </Container>
   );
 };
+
+export default OurNumbers;

@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export const Quotes = () => {
+const Quotes = () => {
   const classes = useStyles();
 
   const params = {
@@ -113,3 +113,5 @@ export const Quotes = () => {
     </Grid>
   );
 };
+
+export default Quotes;
