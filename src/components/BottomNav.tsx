@@ -9,15 +9,21 @@ import React from "react";
 import RestoreIcon from "@material-ui/icons/Restore";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
+import Link from "next/link";
+import HomeIcon from "@material-ui/icons/Home";
+import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
+import InfoIcon from "@material-ui/icons/Info";
+import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     bottomNav: {
       position: "fixed",
       zIndex: 1300,
-      left: "8px",
-      bottom: "8px",
-      width: "calc(100% - 16px)",
+      left: 0,
+      bottom: 0,
+      width: "100%",
+      height: "10vh",
       margin: "auto",
       borderRadius: "5px",
       boxShadow: "10px -4px -2px black",
@@ -40,11 +46,18 @@ const MyComp = () => {
       showLabels
       className={classes.bottomNav}
     >
-      <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
-      <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
-      <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
-
-      <BottomNavigationAction label="Nearby" icon={<LocationOnIcon />} />
+      <Link href="/">
+        <BottomNavigationAction label="Poce" icon={<HomeIcon />} />
+      </Link>
+      <Link href="/proizvodi">
+        <BottomNavigationAction label="Proi" icon={<ShoppingBasketIcon />} />
+      </Link>
+      <Link href="/o_nama">
+        <BottomNavigationAction label="nama" icon={<InfoIcon />} />
+      </Link>
+      <Link href="/partneri">
+        <BottomNavigationAction label="Partneri" icon={<PeopleAltIcon />} />
+      </Link>
     </BottomNavigation>
   );
 };

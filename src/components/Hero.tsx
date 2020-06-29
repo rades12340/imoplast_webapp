@@ -12,6 +12,7 @@ import { Typography } from "@material-ui/core";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import InstagramIcon from "@material-ui/icons/Instagram";
 import TwitterIcon from "@material-ui/icons/Twitter";
+import Link from "next/link";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -38,11 +39,13 @@ const useStyles = makeStyles((theme: Theme) =>
       position: "relative",
       display: "grid",
       justifyContent: "center",
-      // alignItems: "center",
       textAlign: "left",
-      // height: "100%",
       [theme.breakpoints.up("md")]: {
+        display: "grid",
+        justifyContent: "center",
+        alignContent: "center",
         textAlign: "left",
+
         height: "100%",
       },
     },
@@ -71,7 +74,7 @@ const Home = ({ src }) => {
               align="left"
               gutterBottom
             >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Proizvodnja plastičnih delova najviseg kvaliteta
             </Typography>
             <Typography
               variant="body1"
@@ -79,17 +82,23 @@ const Home = ({ src }) => {
               align="left"
               gutterBottom
             >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Enim in
-              feugiat nisl gravida erat bibendum dolor.
+              Osnovni program Imoplasta čine plastični delovi koji nalaze
+              primenu u oblasti hidrauličkih armatura, hidrauličkih creva i
+              priključnih elemenata, sanitarnih armatura, pneumatike,
+              elektroinstalacija , dok je deo proizvodnje usmeren ka uslužnom
+              brizganju do 350g gde postoji mogućnost i izrade kalupa po
+              potrebama kupca.
             </Typography>
             <Box>
-              <Button
-                variant="contained"
-                color="secondary"
-                endIcon={<ArrowForwardIcon />}
-              >
-                Proizvodi
-              </Button>
+              <Link href="/proizvodi">
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  endIcon={<ArrowForwardIcon />}
+                >
+                  Proizvodi
+                </Button>
+              </Link>
             </Box>
           </Box>
           <Box className={classes.links}>

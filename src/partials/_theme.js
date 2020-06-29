@@ -54,11 +54,12 @@ let theme = createMuiTheme({
         margin: "auto",
       },
     },
-    // MuiTypography: {
-    //   h2: {
-    //     fontSize: "32px",
-    //   },
-    // },
+    MuiListItemText: {
+      primary: {
+        fontSize: "1em",
+        lineHeight: 1,
+      },
+    },
   },
 });
 

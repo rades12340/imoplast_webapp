@@ -34,27 +34,33 @@ const FourKeyParts = () => {
     <Container className={classes.root}>
       <Grid container spacing={2}>
         <Grid item lg={12}>
-          <Typography
-            variant="h3"
-            color="textSecondary"
-            align="center"
-            gutterBottom
-          >
-            Kvalitet na prvom mestu
-          </Typography>
-          <hr
-            style={{ width: "200px", height: "5px", backgroundColor: "orange" }}
-          />
-          <Typography
-            variant="body1"
-            color="textSecondary"
-            align="center"
-            gutterBottom
-          >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Odio purus
-            ornare velit, suspendisse. Lorem ipsum dolor sit amet, consectetur
-            adipiscing elit. Odio purus ornare velit, suspendisse.
-          </Typography>
+          <Box maxWidth="700px" margin="auto">
+            <Typography
+              variant="h3"
+              color="textSecondary"
+              align="center"
+              gutterBottom
+            >
+              Kvalitet na prvom mestu
+            </Typography>
+            <hr
+              style={{
+                width: "200px",
+                height: "5px",
+                backgroundColor: "orange",
+              }}
+            />
+            <Typography
+              variant="body1"
+              color="textSecondary"
+              align="center"
+              gutterBottom
+            >
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Odio
+              purus ornare velit, suspendisse. Lorem ipsum dolor sit amet,
+              consectetur adipiscing elit. Odio purus ornare velit, suspendisse.
+            </Typography>
+          </Box>
         </Grid>
         <Grid item container lg={12} spacing={2}>
           <Grid item md={6} lg={6}>

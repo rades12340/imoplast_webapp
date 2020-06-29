@@ -62,7 +62,7 @@ const Quotes = () => {
   return (
     <Grid container spacing={2}>
       <Grid item lg={12}>
-        <Box m={2} width={"100%"}>
+        <Box p={2} width="100%">
           <Typography
             variant="h3"
             color="textSecondary"

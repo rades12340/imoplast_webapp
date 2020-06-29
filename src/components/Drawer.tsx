@@ -1,16 +1,14 @@
 import React from "react";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
-import Drawer from "@material-ui/core/Drawer";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Toolbar from "@material-ui/core/Toolbar";
+import CardProduct from "./CardProduct";
+import ListSubheader from "@material-ui/core/ListSubheader";
 import List from "@material-ui/core/List";
-import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
-import CardQuote from "./CardQuote";
+import Collapse from "@material-ui/core/Collapse";
+import ExpandLess from "@material-ui/icons/ExpandLess";
+import ExpandMore from "@material-ui/icons/ExpandMore";
 
 const drawerWidth = 240;
 
@@ -18,6 +16,10 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: "flex",
+    },
+    expnasionRoot: {
+      width: "100%",
+      maxWidth: 240,
     },
     drawer: {
       width: drawerWidth,
@@ -33,59 +35,81 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     content: {
       flexGrow: 1,
-      padding: theme.spacing(3),
+      padding: theme.spacing(0, 0, 3, 3),
+    },
+    heading: {
+      fontSize: theme.typography.pxToRem(15),
+    },
+    details: {
+      alignItems: "center",
+    },
+    helper: {
+      borderLeft: `2px solid ${theme.palette.divider}`,
+      padding: theme.spacing(0, 0, 0, 1),
+    },
+    subheader: {
+      width: "100%",
+      maxWidth: 360,
+      backgroundColor: theme.palette.background.paper,
+    },
+    nested: {
+      paddingLeft: theme.spacing(4),
+    },
+    borderLeft: {
+      borderLeft: `2px solid ${theme.palette.divider}`,
+      margin: theme.spacing(0, 2),
     },
   })
 );
 
 export default function ClippedDrawer() {
   const classes = useStyles();
+  const [open, setOpen] = React.useState(true);
 
+  const handleClick = () => {
+    setOpen(!open);
+  };
   return (
     <div className={classes.root}>
       <CssBaseline />
 
-      <Drawer
-        className={classes.drawer}
-        variant="permanent"
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-      >
-        <Toolbar />
-        <div className={classes.drawerContainer}>
-          <List>
-            {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
+      <div className={classes.expnasionRoot}>
+        {/* <Toolbar /> */}
+        <List
+          component="nav"
+          aria-labelledby="nested-list-subheader"
+          subheader={
+            <ListSubheader component="div" id="nested-list-subheader">
+              Kategorije proizvoda
+            </ListSubheader>
+          }
+          className={classes.subheader}
+        >
+          <ListItem button>
+            <ListItemText primary="Sent mail" />
+          </ListItem>
+          <ListItem button>
+            <ListItemText primary="Drafts" />
+          </ListItem>
+          <ListItem button onClick={handleClick}>
+            <ListItemText primary="Inbox" />
+            {open ? <ExpandLess /> : <ExpandMore />}
+          </ListItem>
+          <Collapse in={open} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding className={classes.borderLeft}>
+              <ListItem button className={classes.nested}>
+                <ListItemText primary="Starred" />
               </ListItem>
-            ))}
-          </List>
-          <Divider />
-          <List>
-            {["All mail", "Trash", "Spam"].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List>
-        </div>
-      </Drawer>
+            </List>
+          </Collapse>
+        </List>
+      </div>
       <main className={classes.content}>
-        <Toolbar />
-        {[1, 2, 3, 4].map((e) => {
-          return (
-            <div style={{ display: "inline-block", marginRight: "20px" }}>
-              <CardQuote />;
-            </div>
-          );
-        })}
+        <CardProduct />
+        <CardProduct />
+        <CardProduct />
+        <CardProduct />
+        <CardProduct />
       </main>
     </div>
   );
