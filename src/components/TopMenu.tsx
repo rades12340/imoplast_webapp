@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
     },
     media: {
+      maxHeight: "64px",
       height: "7vh",
       width: "auto",
     },

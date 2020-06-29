@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     infoMap: {
       gridColumn: "2 / -1",
-      background: "url(/images/map.png) no-repeat center top scroll",
+      background: "url(/images/map.png) no-repeat center center scroll",
       backgroundSize: "cover",
       height: "100%",
       width: "auto",

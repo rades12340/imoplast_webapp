@@ -6,6 +6,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import theme from "../partials/_theme";
 import BottomNav from "../components/BottomNav";
 import TopMenu from "../components/TopMenu";
+import Footer from "../components/Footer";
 import "./styles.css";
 import "swiper/css/swiper.css";
 
@@ -43,6 +44,7 @@ export default function MyApp(props) {
         <TopMenu />
         <Component {...pageProps} />
         <BottomNav />
+        <Footer />
       </ThemeProvider>
     </React.Fragment>
   );

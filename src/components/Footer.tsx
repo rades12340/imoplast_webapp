@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: "center",
     },
     media: {
+      maxHeight: "64px",
       height: "7vh",
     },
     link: {
