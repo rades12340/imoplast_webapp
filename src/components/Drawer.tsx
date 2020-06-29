@@ -9,6 +9,11 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Collapse from "@material-ui/core/Collapse";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormHelperText from "@material-ui/core/FormHelperText";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
 
 const drawerWidth = 240;
 
@@ -16,10 +21,16 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: "flex",
+      [theme.breakpoints.down("md")]: {
+        flexDirection: "column"
+      },
     },
     expnasionRoot: {
       width: "100%",
       maxWidth: 240,
+      [theme.breakpoints.down("md")]: {
+        display: "none",
+      },
     },
     drawer: {
       width: drawerWidth,
@@ -59,12 +70,29 @@ const useStyles = makeStyles((theme: Theme) =>
       borderLeft: `2px solid ${theme.palette.divider}`,
       margin: theme.spacing(0, 2),
     },
+    navigation: {
+      [theme.breakpoints.up("sm")]: {
+        display: "none",
+      },
+    },
+    formControl: {
+      margin: theme.spacing(1),
+      minWidth: 120,
+    },
+    selectEmpty: {
+      marginTop: theme.spacing(2),
+    },
   })
 );
 
 export default function ClippedDrawer() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
+  const [age, setAge] = React.useState("");
+
+  const handleChange = (event) => {
+    setAge(event.target.value);
+  };
 
   const handleClick = () => {
     setOpen(!open);
@@ -103,6 +131,38 @@ export default function ClippedDrawer() {
             </List>
           </Collapse>
         </List>
+      </div>
+      <div className={classes.navigation}>
+        <FormControl className={classes.formControl}>
+          <InputLabel id="demo-simple-select-label">Age</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={age}
+            onChange={handleChange}
+          >
+            <MenuItem value={10}>Ten</MenuItem>
+            <MenuItem value={20}>Twenty</MenuItem>
+            <MenuItem value={30}>Thirty</MenuItem>
+          </Select>
+        </FormControl>
+        <FormControl className={classes.formControl}>
+          <InputLabel id="demo-simple-select-helper-label">Age</InputLabel>
+          <Select
+            labelId="demo-simple-select-helper-label"
+            id="demo-simple-select-helper"
+            value={age}
+            onChange={handleChange}
+          >
+            <MenuItem value="">
+              <em>None</em>
+            </MenuItem>
+            <MenuItem value={10}>Ten</MenuItem>
+            <MenuItem value={20}>Twenty</MenuItem>
+            <MenuItem value={30}>Thirty</MenuItem>
+          </Select>
+          <FormHelperText>Some important helper text</FormHelperText>
+        </FormControl>
       </div>
       <main className={classes.content}>
         <CardProduct />
