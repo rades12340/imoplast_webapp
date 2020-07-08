@@ -11,41 +11,7 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import SwipeableViews from "react-swipeable-views";
-import { autoPlay } from "react-swipeable-views-utils";
-import { MobileStepper } from "@material-ui/core";
-import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
-import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
-
-const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
-
-const tutorialSteps = [
-  {
-    label: "San Francisco – Oakland Bay Bridge, United States",
-    imgPath:
-      "https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60",
-  },
-  {
-    label: "Bird",
-    imgPath:
-      "https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60",
-  },
-  {
-    label: "Bali, Indonesia",
-    imgPath:
-      "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250&q=80",
-  },
-  {
-    label: "NeONBRAND Digital Marketing, Las Vegas, United States",
-    imgPath:
-      "https://images.unsplash.com/photo-1518732714860-b62714ce0c59?auto=format&fit=crop&w=400&h=250&q=60",
-  },
-  {
-    label: "Goč, Serbia",
-    imgPath:
-      "https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60",
-  },
-];
+import { MobileStepper, CardMedia } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
@@ -58,6 +24,14 @@ const useStyles = makeStyles((theme: Theme) => {
     stepper: {
       width: "100%",
       flexGrow: 1,
+    },
+    actionArea: {
+      osition: "relative",
+      height: "100%",
+      minHeight: "500px",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "right",
     },
     header: {
       display: "flex",
@@ -73,14 +47,18 @@ const useStyles = makeStyles((theme: Theme) => {
       overflow: "hidden",
       width: "100%",
     },
+    media: {
+      height: "240px",
+      width: "100%",
+    },
+    props: {},
   });
 });
 
-export default function MediaCard() {
+export default function CardProduct({ product }: any) {
   const classes = useStyles();
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
-  const maxSteps = tutorialSteps.length;
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -96,33 +74,19 @@ export default function MediaCard() {
 
   return (
     <Card className={classes.root}>
-      <CardActionArea>
-        <AutoPlaySwipeableViews
-          axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-          index={activeStep}
-          onChangeIndex={handleStepChange}
-          enableMouseEvents
-        >
-          {tutorialSteps.map((step, index) => (
-            <div key={step.label}>
-              {Math.abs(activeStep - index) <= 2 ? (
-                <img
-                  className={classes.img}
-                  src={step.imgPath}
-                  alt={step.label}
-                />
-              ) : null}
-            </div>
-          ))}
-        </AutoPlaySwipeableViews>
+      <CardActionArea className={classes.actionArea}>
+        <CardMedia
+          className={classes.media}
+          image={product.image_src}
+          title="Contemplative Reptile"
+        />
 
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            Lizard
+          <Typography gutterBottom variant="h6" component="h2">
+            {product.name}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+            {product.description}
           </Typography>
         </CardContent>
       </CardActionArea>

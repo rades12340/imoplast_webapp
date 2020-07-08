@@ -13,7 +13,6 @@ const Home = () => {
       <OurNumbers />
       <Quotes />
       <Finance />
- 
     </div>
   );
 };

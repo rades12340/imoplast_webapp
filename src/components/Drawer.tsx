@@ -14,6 +14,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import useSWR from "swr";
 
 const drawerWidth = 240;
 
@@ -22,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       display: "flex",
       [theme.breakpoints.down("md")]: {
-        flexDirection: "column"
+        flexDirection: "column",
       },
     },
     expnasionRoot: {
@@ -45,8 +46,8 @@ const useStyles = makeStyles((theme: Theme) =>
       overflow: "auto",
     },
     content: {
-      flexGrow: 1,
-      padding: theme.spacing(0, 0, 3, 3),
+      flex: 1,
+      padding: theme.spacing(3),
     },
     heading: {
       fontSize: theme.typography.pxToRem(15),
@@ -85,10 +86,13 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+const fetcher = (url) => fetch(url).then((res) => res.json());
+
 export default function ClippedDrawer() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const [age, setAge] = React.useState("");
+  const { data, error } = useSWR("/api/products", fetcher);
 
   const handleChange = (event) => {
     setAge(event.target.value);
@@ -97,6 +101,10 @@ export default function ClippedDrawer() {
   const handleClick = () => {
     setOpen(!open);
   };
+  console.log(data);
+  if (error) {
+    return <div>Loading...</div>;
+  }
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -165,11 +173,10 @@ export default function ClippedDrawer() {
         </FormControl>
       </div>
       <main className={classes.content}>
-        <CardProduct />
-        <CardProduct />
-        <CardProduct />
-        <CardProduct />
-        <CardProduct />
+        {data &&
+          data.map((p) => {
+            return <CardProduct key={p.product_id} product={p} />;
+          })}
       </main>
     </div>
   );
