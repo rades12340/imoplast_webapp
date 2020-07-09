@@ -1,7 +1,6 @@
 import React from "react";
 import Drawer from "../components/Drawer";
 import { Box, Typography } from "@material-ui/core";
-import { NextPageContext } from "next";
 
 const Proizvodi = ({ products }) => {
   return (

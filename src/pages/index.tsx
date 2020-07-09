@@ -8,6 +8,7 @@ import Footer from "../components/Footer";
 const Home = () => {
   return (
     <div>
+      <pre>{JSON.stringify(process.env, null, 4)}</pre>
       <SwipperGallery />
       <FourKeyParts />
       <OurNumbers />
