@@ -2,19 +2,15 @@ import React from "react";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import CardProduct from "./CardProduct";
-import ListSubheader from "@material-ui/core/ListSubheader";
+import Avatar from "@material-ui/core/Avatar";
+import Chip from "@material-ui/core/Chip";
+import FaceIcon from "@material-ui/icons/Face";
+import DoneIcon from "@material-ui/icons/Done";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import Collapse from "@material-ui/core/Collapse";
-import ExpandLess from "@material-ui/icons/ExpandLess";
-import ExpandMore from "@material-ui/icons/ExpandMore";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
-import useSWR from "swr";
+import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
+import AddIcon from "@material-ui/icons/Add";
 
 const drawerWidth = 240;
 
@@ -26,9 +22,21 @@ const useStyles = makeStyles((theme: Theme) =>
         flexDirection: "column",
       },
     },
-    expnasionRoot: {
+    chips: {
+      display: "none",
+      [theme.breakpoints.down("md")]: {
+        display: "flex",
+        justifyContent: "center",
+        flexWrap: "wrap",
+        "& > *": {
+          margin: theme.spacing(0.5),
+        },
+      },
+    },
+    categories: {
       width: "100%",
       maxWidth: 240,
+      marginTop: theme.spacing(3),
       [theme.breakpoints.down("md")]: {
         display: "none",
       },
@@ -71,11 +79,6 @@ const useStyles = makeStyles((theme: Theme) =>
       borderLeft: `2px solid ${theme.palette.divider}`,
       margin: theme.spacing(0, 2),
     },
-    navigation: {
-      [theme.breakpoints.up("sm")]: {
-        display: "none",
-      },
-    },
     formControl: {
       margin: theme.spacing(1),
       minWidth: 120,
@@ -86,13 +89,10 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const fetcher = (url) => fetch(url).then((res) => res.json());
-
-export default function ClippedDrawer() {
+export default function ClippedDrawer({ products }: any) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const [age, setAge] = React.useState("");
-  const { data, error } = useSWR("/api/products", fetcher);
 
   const handleChange = (event) => {
     setAge(event.target.value);
@@ -101,82 +101,53 @@ export default function ClippedDrawer() {
   const handleClick = () => {
     setOpen(!open);
   };
-  console.log(data);
-  if (error) {
-    return <div>Loading...</div>;
-  }
+
+  const handleDelete = () => {
+    console.info("You clicked the delete icon.");
+  };
+
   return (
     <div className={classes.root}>
       <CssBaseline />
 
-      <div className={classes.expnasionRoot}>
-        {/* <Toolbar /> */}
-        <List
-          component="nav"
-          aria-labelledby="nested-list-subheader"
-          subheader={
-            <ListSubheader component="div" id="nested-list-subheader">
-              Kategorije proizvoda
-            </ListSubheader>
-          }
-          className={classes.subheader}
-        >
-          <ListItem button>
-            <ListItemText primary="Sent mail" />
-          </ListItem>
-          <ListItem button>
-            <ListItemText primary="Drafts" />
-          </ListItem>
-          <ListItem button onClick={handleClick}>
-            <ListItemText primary="Inbox" />
-            {open ? <ExpandLess /> : <ExpandMore />}
-          </ListItem>
-          <Collapse in={open} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding className={classes.borderLeft}>
-              <ListItem button className={classes.nested}>
-                <ListItemText primary="Starred" />
-              </ListItem>
-            </List>
-          </Collapse>
+      <div className={classes.categories}>
+        <List>
+          {[
+            "Svi proizvodi",
+            "Montaža i zaštita hidrauličkih creva i priključaka",
+            "Hidrauličke Armature",
+            "Sanitarne Armature",
+            "Elektroinstalacije",
+            "Ciklon vazduha Lomardini",
+          ].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
         </List>
       </div>
-      <div className={classes.navigation}>
-        <FormControl className={classes.formControl}>
-          <InputLabel id="demo-simple-select-label">Age</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={age}
-            onChange={handleChange}
-          >
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
-          </Select>
-        </FormControl>
-        <FormControl className={classes.formControl}>
-          <InputLabel id="demo-simple-select-helper-label">Age</InputLabel>
-          <Select
-            labelId="demo-simple-select-helper-label"
-            id="demo-simple-select-helper"
-            value={age}
-            onChange={handleChange}
-          >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
-          </Select>
-          <FormHelperText>Some important helper text</FormHelperText>
-        </FormControl>
+      <div className={classes.chips}>
+        {[
+          "Svi proizvodi",
+          "Montaža i zaštita hidrauličkih creva i priključaka",
+          "Hidrauličke Armature",
+          "Sanitarne Armature",
+          "Elektroinstalacije",
+          "Ciklon vazduha Lomardini",
+        ].map((chip) => (
+          <Chip
+            key={chip}
+            icon={<AddIcon />}
+            label={chip}
+            onClick={handleClick}
+            onDelete={handleDelete}
+          />
+        ))}
       </div>
       <main className={classes.content}>
-        {data &&
-          data.map((p) => {
-            return <CardProduct key={p.product_id} product={p} />;
-          })}
+        {products.map((p) => {
+          return <CardProduct key={p.product_id} product={p} />;
+        })}
       </main>
     </div>
   );

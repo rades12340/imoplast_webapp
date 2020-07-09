@@ -11,7 +11,7 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import { MobileStepper, CardMedia } from "@material-ui/core";
+import { CardMedia } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
@@ -60,18 +60,6 @@ export default function CardProduct({ product }: any) {
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
 
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  };
-
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
-  const handleStepChange = (step: number) => {
-    setActiveStep(step);
-  };
-
   return (
     <Card className={classes.root}>
       <CardActionArea className={classes.actionArea}>
@@ -80,7 +68,6 @@ export default function CardProduct({ product }: any) {
           image={product.image_src}
           title="Contemplative Reptile"
         />
-
         <CardContent>
           <Typography gutterBottom variant="h6" component="h2">
             {product.name}
@@ -91,11 +78,8 @@ export default function CardProduct({ product }: any) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
-          Share
-        </Button>
-        <Button size="small" color="primary">
-          Learn More
+        <Button size="small" color="primary" style={{ marginLeft: "auto" }}>
+          Detalji
         </Button>
       </CardActions>
     </Card>

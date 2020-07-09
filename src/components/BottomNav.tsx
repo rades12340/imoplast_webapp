@@ -6,9 +6,6 @@ import {
   Theme,
 } from "@material-ui/core";
 import React from "react";
-import RestoreIcon from "@material-ui/icons/Restore";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import LocationOnIcon from "@material-ui/icons/LocationOn";
 import Link from "next/link";
 import HomeIcon from "@material-ui/icons/Home";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
@@ -47,7 +44,7 @@ const MyComp = () => {
       className={classes.bottomNav}
     >
       <Link href="/">
-        <BottomNavigationAction label="Poce" icon={<HomeIcon />} />
+        <BottomNavigationAction label="Pocetak" icon={<HomeIcon />} />
       </Link>
       <Link href="/proizvodi">
         <BottomNavigationAction label="Proi" icon={<ShoppingBasketIcon />} />
