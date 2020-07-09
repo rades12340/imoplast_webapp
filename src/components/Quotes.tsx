@@ -86,13 +86,13 @@ const Quotes = () => {
         lg={12}
         style={{
           width: "100%",
-          maxWidth: "1400px",
+          maxWidth: "1800px",
           margin: "auto",
           overflow: "hidden",
         }}
       >
         <Swiper {...params}>
-          <Box style={{ marginLeft: "48px" }}>
+          <Box style={{ marginLeft: "10vw" }}>
             <CardQuote />
           </Box>
           <Box>
