@@ -2,6 +2,7 @@ import React from "react";
 import Drawer from "../components/Drawer";
 import { Box, Typography } from "@material-ui/core";
 import { GetServerSideProps } from "next";
+import fetch from "isomorphic-fetch";
 
 const Proizvodi = ({ products }) => {
   return (
@@ -9,13 +10,14 @@ const Proizvodi = ({ products }) => {
       <Typography variant="h4" color="textSecondary" align="left" gutterBottom>
         Proizvodni asortiman
       </Typography>
+
       <Drawer products={products} />
     </Box>
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await fetch("http://localhost:3000/api/products");
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const res = await fetch(`https://imoplast-webapp.vercel.app/api/products`);
   const data = await res.json();
   return { props: { products: data } };
 };
