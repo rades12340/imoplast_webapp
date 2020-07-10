@@ -9,8 +9,10 @@ import TopMenu from "../components/TopMenu";
 import Footer from "../components/Footer";
 import "./styles.css";
 import "swiper/css/swiper.css";
+import { useRouter } from "next/router";
 
 export default function MyApp(props) {
+  const router = useRouter();
   const { Component, pageProps } = props;
 
   React.useEffect(() => {
@@ -41,10 +43,11 @@ export default function MyApp(props) {
       <ThemeProvider theme={theme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
-        <TopMenu />
+        {router.pathname !== "/proizvodi/[id]" ? <TopMenu /> : null}
         <Component {...pageProps} />
-        <BottomNav />
-        <Footer />
+        {router.pathname !== "/proizvodi/[id]" ? <BottomNav /> : null}
+
+        {router.pathname !== "/proizvodi/[id]" ? <Footer /> : null}
       </ThemeProvider>
     </React.Fragment>
   );

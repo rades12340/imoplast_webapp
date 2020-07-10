@@ -17,7 +17,11 @@ const Proizvodi = ({ products }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const res = await fetch(`https://imoplast-webapp.vercel.app/api/products`);
+  const isProd =
+    process.env.NODE_ENV === "development"
+      ? "http://localhost:3000"
+      : "https://imoplast-webapp.vercel.app";
+  const res = await fetch(`${isProd}/api/products`);
   const data = await res.json();
   return { props: { products: data } };
 };
