@@ -38,11 +38,26 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Product = ({ product }: any) => {
+interface ProductProps {
+  product_id: number;
+  name: string;
+  image_src: string;
+  description: string;
+}
+
+interface ProductPropsInterface {
+  product: ProductProps;
+}
+
+const Product = ({ product }: ProductPropsInterface) => {
   const classes = useStyles();
   const router: NextRouter = useRouter();
   // If the page is not yet generated, this will be displayed
   // initially until getStaticProps() finishes running
+
+  if (router.isFallback) {
+    return <h1>Loading</h1>;
+  }
 
   return (
     <div className={classes.root}>
@@ -54,7 +69,7 @@ const Product = ({ product }: any) => {
           background: `url(${product.image_src}) no-repeat center center scroll`,
           backgroundSize: "cover",
           boxShadow:
-            "28px 29px 60px 60px rgba(0,0,0,0.75) inset, -28px -29px 60px 60px rgba(0,0,0,0.75) inset",
+            "20px 20px 60px 60px rgba(0,0,0,0.35) inset, -20px -2px 60px 60px rgba(0,0,0,0.35) inset",
         }}
       >
         <Link
@@ -65,8 +80,8 @@ const Product = ({ product }: any) => {
           style={{
             color: "white",
             position: "absolute",
-            left: "2em",
-            top: "2em",
+            left: "1.5em",
+            top: "1.5em",
             cursor: "pointer",
             fontSize: "1.5em",
             display: "flex",
@@ -77,7 +92,7 @@ const Product = ({ product }: any) => {
       </div>
       <div className={classes.desc}>
         <Typography
-          variant="h4"
+          variant="h6"
           color="textSecondary"
           align="left"
           gutterBottom
@@ -109,11 +124,8 @@ export async function getStaticPaths() {
     params: { id: p.product_id.toString() },
   }));
   return {
-    // Only `/posts/1` and `/posts/2` are generated at build time
     paths: params,
-    // Enable statically generating additional pages
-    // For example: `/posts/3`
-    fallback: false,
+    fallback: true,
   };
 }
 

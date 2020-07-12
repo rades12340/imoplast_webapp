@@ -12,6 +12,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { CardMedia } from "@material-ui/core";
+import Link from "next/link";
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
@@ -55,10 +56,19 @@ const useStyles = makeStyles((theme: Theme) => {
   });
 });
 
-export default function CardProduct({ product }: any) {
+interface ProductProps {
+  product_id: number;
+  name: string;
+  image_src: string;
+  description: string;
+}
+
+interface ProductPropsInterface {
+  product: ProductProps;
+}
+
+const CardProd = ({ product }) => {
   const classes = useStyles();
-  const theme = useTheme();
-  const [activeStep, setActiveStep] = React.useState(0);
 
   return (
     <Card className={classes.root}>
@@ -78,10 +88,14 @@ export default function CardProduct({ product }: any) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary" style={{ marginLeft: "auto" }}>
-          Detalji
-        </Button>
+        <Link href={"/proizvodi/[id]"} as={`/proizvodi/${product.product_id}`}>
+          <Button size="small" color="primary" style={{ marginLeft: "auto" }}>
+            Detalji
+          </Button>
+        </Link>
       </CardActions>
     </Card>
   );
-}
+};
+
+export default CardProd;

@@ -46,7 +46,6 @@ export default function MyApp(props) {
         {router.pathname !== "/proizvodi/[id]" ? <TopMenu /> : null}
         <Component {...pageProps} />
         {router.pathname !== "/proizvodi/[id]" ? <BottomNav /> : null}
-
         {router.pathname !== "/proizvodi/[id]" ? <Footer /> : null}
       </ThemeProvider>
     </React.Fragment>
