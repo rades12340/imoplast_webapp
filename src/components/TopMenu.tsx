@@ -157,9 +157,9 @@ export default function PrimarySearchAppBar() {
             <Link href="/o_nama">
               <Button color="inherit">O nama</Button>
             </Link>
-            <Link href="/partneri">
+            {/* <Link href="/partneri">
               <Button color="inherit">Partneri</Button>
-            </Link>
+            </Link> */}
             <IconButton aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="secondary">
                 <BookmarkIcon fontSize="large" />

@@ -13,14 +13,12 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { CardMedia } from "@material-ui/core";
 import Link from "next/link";
+import ArrowRightAltIcon from "@material-ui/icons/ArrowRightAlt";
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
     root: {
-      display: "inline-block",
-      minWidth: 180,
-      maxWidth: 280,
-      margin: "0 2em 2em 0",
+      textDecoration: "none !important",
     },
     stepper: {
       width: "100%",
@@ -52,7 +50,9 @@ const useStyles = makeStyles((theme: Theme) => {
       height: "240px",
       width: "100%",
     },
-    props: {},
+    cardActions: {
+      backgroundColor: "#ededed",
+    },
   });
 });
 
@@ -87,10 +87,10 @@ const CardProd = ({ product }) => {
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions>
+      <CardActions className={classes.cardActions}>
         <Link href={"/proizvodi/[id]"} as={`/proizvodi/${product.product_id}`}>
           <Button size="small" color="primary" style={{ marginLeft: "auto" }}>
-            Detalji
+            Detalji <ArrowRightAltIcon color="primary" />
           </Button>
         </Link>
       </CardActions>

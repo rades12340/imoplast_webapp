@@ -12,122 +12,131 @@ import { Typography } from "@material-ui/core";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import InstagramIcon from "@material-ui/icons/Instagram";
 import TwitterIcon from "@material-ui/icons/Twitter";
-import Link from "next/link";
+
+import Router from "next/router";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {},
-    topGrid: {
-      position: "relative",
-      maxHeight: "700px",
+    root: {
       display: "grid",
-      placeItems: "center",
-      [theme.breakpoints.down("md")]: {
-        height: "90vh",
-        marginBottom: "64px",
+      height: "80vh",
+      maxWidth: "1280px",
+      maxHeight: "700px",
+      margin: "auto",
+      gridTemplateColumns: "repeat(3, 1fr)",
+      gridTemplateRows: "1fr 1fr 6em",
+      gridTemplateAreas: `"header header img"
+          "header header img"
+          "links  links  img"`,
+      [theme.breakpoints.down("sm")]: {
+        gridTemplateAreas: `"img img img"
+          "header header header"
+          "links  links  links"`,
       },
     },
-    bottomGrid: {
-      position: "relative",
-      height: "100vh",
-      maxHeight: "700px",
-      [theme.breakpoints.down("md")]: {
-        display: "none",
-      },
-    },
-    textAlign: {
-      position: "relative",
-      display: "grid",
+    header: {
+      gridArea: "header",
+      display: "flex",
+      flexDirection: "column",
       justifyContent: "center",
-      textAlign: "left",
-      [theme.breakpoints.up("md")]: {
-        display: "grid",
-        justifyContent: "center",
-        alignContent: "center",
-        textAlign: "left",
-
-        height: "100%",
+      [theme.breakpoints.down("sm")]: {
+        justifyContent: "flex-start",
       },
     },
     links: {
-      position: "absolute",
-      left: 0,
-      bottom: 0,
+      gridArea: "links",
+      display: "flex",
+      justifyContent: "flex-start",
+      alignItems: "center",
+    },
+    img: {
+      gridArea: "img",
+      background:
+        "url(/images/Navojni cep za zastitu unutrasnjeg navoja1.png) no-repeat center center scroll",
+      backgroundSize: "cover",
+      height: "100%",
+      width: "auto",
+      [theme.breakpoints.down("sm")]: {
+        height: "100%",
+        display: "flex",
+        justifyContent: "center",
+        maxHeight: "25vh",
+      },
     },
     link: {
-      paddingRight: "1rem",
+      height: "3em",
+      width: "3em",
+    },
+    image: {
+      objectFit: "cover",
+      height: "100%",
+      width: "auto",
+      maxWidth: "600px",
+      objectPosition: "left",
+      [theme.breakpoints.down("md")]: {
+        maxWidth: "400px",
+      },
+      [theme.breakpoints.down("sm")]: {
+        maxWidth: "100%",
+      },
     },
   })
 );
 
-const Home = ({ src }) => {
+const Hero = () => {
   const classes = useStyles();
 
   return (
-    <Container style={{ position: "relative" }}>
-      <Grid container>
-        <Grid item xs={11} lg={7} className={classes.topGrid}>
-          <Box className={classes.textAlign}>
-            <Typography
-              variant="h3"
-              color="textSecondary"
-              align="left"
-              gutterBottom
-            >
-              Proizvodnja plastičnih delova najviseg kvaliteta
-            </Typography>
-            <Typography
-              variant="body1"
-              color="textSecondary"
-              align="left"
-              gutterBottom
-            >
-              Osnovni program Imoplasta čine plastični delovi koji nalaze
-              primenu u oblasti hidrauličkih armatura, hidrauličkih creva i
-              priključnih elemenata, sanitarnih armatura, pneumatike,
-              elektroinstalacija , dok je deo proizvodnje usmeren ka uslužnom
-              brizganju do 350g gde postoji mogućnost i izrade kalupa po
-              potrebama kupca.
-            </Typography>
-            <Box>
-              <Link href="/proizvodi">
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  endIcon={<ArrowForwardIcon />}
-                >
-                  Proizvodi
-                </Button>
-              </Link>
-            </Box>
-          </Box>
-          <Box className={classes.links}>
-            <a className={classes.link} href="/">
-              <FacebookIcon fontSize="large" color="primary" />
-            </a>
-            <a className={classes.link} href="/">
-              <InstagramIcon fontSize="large" color="primary" />
-            </a>
-            <a className={classes.link} href="/">
-              <TwitterIcon fontSize="large" color="primary" />
-            </a>
-          </Box>
-        </Grid>
-        <Grid item xs={1} lg={5} className={classes.bottomGrid}>
-          <Box style={{ overflow: "hidden" }}>
-            <img
-              src={src}
-              alt=""
-              style={{
-                minHeight: "500px",
-                objectPosition: "center",
-              }}
-            />
-          </Box>
-        </Grid>
-      </Grid>
+    <Container className={classes.root}>
+      <Box className={classes.header}>
+        <Typography
+          variant="h3"
+          color="textSecondary"
+          align="left"
+          gutterBottom
+        >
+          Dugogodišnje iskustvo u oblasti namenske proizvodnje
+        </Typography>
+        <Typography
+          variant="h5"
+          color="textSecondary"
+          align="left"
+          gutterBottom
+        >
+          Nas osnovni program cine proizvodi u oblasti nameske proizvodnje, kao
+          i usluzno brizganje
+        </Typography>
+        <Box>
+          <Button
+            onClick={() => Router.push("/proizvodi")}
+            variant="contained"
+            color="secondary"
+            endIcon={<ArrowForwardIcon />}
+          >
+            Svi proizvodi
+          </Button>
+        </Box>
+      </Box>
+      <Box className={classes.links}>
+        <a className={classes.link} href="/">
+          <FacebookIcon fontSize="large" color="primary" />
+        </a>
+        <a className={classes.link} href="/">
+          <InstagramIcon fontSize="large" color="primary" />
+        </a>
+        <a className={classes.link} href="/">
+          <TwitterIcon fontSize="large" color="primary" />
+        </a>
+      </Box>
+      <Box className={classes.img}>
+        <img
+          src={"/images/Navojni cep za zastitu unutrasnjeg navoja1.png"}
+          alt="Navojni cep za zastitu unutrasnjeg navoja1"
+          className={classes.image}
+        />
+      </Box>
     </Container>
   );
 };
 
-export default Home;
+export default Hero;

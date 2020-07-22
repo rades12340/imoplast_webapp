@@ -11,6 +11,7 @@ import HomeIcon from "@material-ui/icons/Home";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import InfoIcon from "@material-ui/icons/Info";
 import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
+import { orange } from "@material-ui/core/colors";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -28,6 +29,9 @@ const useStyles = makeStyles((theme: Theme) =>
         display: "none",
       },
     },
+    selected: {
+      backgroundColor: orange.A700,
+    },
   })
 );
 
@@ -40,21 +44,32 @@ const MyComp = () => {
       onChange={(event, newValue) => {
         setValue(newValue);
       }}
-      showLabels
+      showLabels={true}
       className={classes.bottomNav}
     >
       <Link href="/">
-        <BottomNavigationAction label="Pocetak" icon={<HomeIcon />} />
+        <BottomNavigationAction showLabel label="Pocetak" icon={<HomeIcon />} />
       </Link>
       <Link href="/proizvodi">
-        <BottomNavigationAction label="Proi" icon={<ShoppingBasketIcon />} />
+        <BottomNavigationAction
+          showLabel
+          label="Proizvodi"
+          icon={<ShoppingBasketIcon />}
+        />
       </Link>
       <Link href="/o_nama">
-        <BottomNavigationAction label="nama" icon={<InfoIcon />} />
+        <BottomNavigationAction showLabel label="O nama" icon={<InfoIcon />} />
       </Link>
-      <Link href="/partneri">
-        <BottomNavigationAction label="Partneri" icon={<PeopleAltIcon />} />
-      </Link>
+      {/* <Link href="/partneri">
+        <a>
+          <BottomNavigationAction
+            showLabel
+            label="Partneri"
+            icon={<PeopleAltIcon />}
+            classes={{ selected: classes.selected }}
+          />
+        </a>
+      </Link> */}
     </BottomNavigation>
   );
 };

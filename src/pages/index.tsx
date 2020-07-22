@@ -1,4 +1,4 @@
-import SwipperGallery from "../components/SwipperGallery";
+import Hero from "../components/Hero";
 import FourKeyParts from "../components/FourKeyParts";
 import OurNumbers from "../components/OurNumbers";
 import Quotes from "../components/Quotes";
@@ -8,7 +8,7 @@ import Footer from "../components/Footer";
 const Home = () => {
   return (
     <>
-      <SwipperGallery />
+      <Hero />
       <FourKeyParts />
       <OurNumbers />
       <Quotes />

@@ -1,8 +1,7 @@
-export const query = (query) => {
-
-    if (Array.isArray(query)) {
-        return query[0].toString();
+export function getAsString(value: string | string[]): string {
+    if (Array.isArray(value)) {
+        return value[0];
     }
 
-    return query.toString()
+    return value;
 }

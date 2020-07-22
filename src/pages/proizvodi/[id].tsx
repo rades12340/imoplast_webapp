@@ -87,7 +87,7 @@ const Product = ({ product }: ProductPropsInterface) => {
             display: "flex",
           }}
         >
-          <ArrowBackIosIcon /> Back
+          <ArrowBackIosIcon /> Nazad
         </Link>
       </div>
       <div className={classes.desc}>

@@ -62,7 +62,7 @@ export default () => {
               align="left"
               gutterBottom
             >
-              Odlicni uslovi snabdevanja sirovina
+              Odlicni uslovi snabdevanja materijala rada
             </Typography>
             <Typography
               variant="body1"
@@ -70,9 +70,9 @@ export default () => {
               align="left"
               gutterBottom
             >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Odio
-              purus ornare velit, suspendisse. Lorem ipsum dolor sit amet,
-              consectetur adipiscing elit. Odio purus ornare velit, suspendisse.
+              Imamo odlicne uslove snabdevanje materijala izrade tako da ni u
+              jednom trenutku ne dodje do obustavljanje proizvodnje ili cekanja
+              na dostavu
             </Typography>
           </Grid>
           <Grid item lg={4}>
@@ -82,7 +82,7 @@ export default () => {
               align="left"
               gutterBottom
             >
-              Za vece kolicine poseban popust
+              Kolicinski popust za vece kolicine proizvoda
             </Typography>
             <Typography
               variant="body1"
@@ -90,9 +90,8 @@ export default () => {
               align="left"
               gutterBottom
             >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Odio
-              purus ornare velit, suspendisse. Lorem ipsum dolor sit amet,
-              consectetur adipiscing elit. Odio purus ornare velit, suspendisse.
+              Za sve zainteresovane kupce uvek postoji mogucnost dodatnog
+              kolicinskog popusta u zavisnosti od vrste proizvoda.
             </Typography>
           </Grid>
           <Grid item lg={4}>
@@ -110,9 +109,8 @@ export default () => {
               align="left"
               gutterBottom
             >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Odio
-              purus ornare velit, suspendisse. Lorem ipsum dolor sit amet,
-              consectetur adipiscing elit. Odio purus ornare velit, suspendisse.
+              Pre same dostave svaki proizvod se proverava kako bi zadovoljio
+              uslove zadate tehnickom dokumentacijom
             </Typography>
           </Grid>
         </Grid>

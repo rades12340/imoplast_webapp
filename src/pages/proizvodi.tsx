@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import {
   Box,
@@ -14,6 +14,15 @@ import ListItemText from "@material-ui/core/ListItemText";
 import AddIcon from "@material-ui/icons/Add";
 import Link from "next/link";
 import CardProd from "../components/CardProduct";
+import DoneIcon from "@material-ui/icons/Done";
+import { getAsString } from "../getAsString";
+import { useRouter } from "next/router";
+import Router from "next/router";
+
+interface CategoryData {
+  name: string;
+  selected: boolean;
+}
 
 const drawerWidth = 240;
 
@@ -59,6 +68,10 @@ const useStyles = makeStyles((theme: Theme) =>
     content: {
       flex: 1,
       padding: theme.spacing(3),
+      display: "grid",
+      gridTemplateColumns: "repeat( auto-fit, minmax(250px, 1fr) )",
+      gridGap: theme.spacing(3),
+      textDecoration: "none",
     },
     heading: {
       fontSize: theme.typography.pxToRem(15),
@@ -89,11 +102,59 @@ const useStyles = makeStyles((theme: Theme) =>
     selectEmpty: {
       marginTop: theme.spacing(2),
     },
+    anchorTag: {
+      textDecoration: "none",
+    },
   })
 );
 
+const categories = [
+  "Svi proizvodi",
+  "Montaža i zaštita hidrauličkih creva i priključaka",
+  "Hidrauličke Armature",
+  "Sanitarne Armature",
+  "Elektroinstalacije",
+  "Ciklon vazduha Lomardini",
+];
+
 const Proizvodi = ({ products }) => {
+  const { query } = useRouter();
+
+  const [initialValues] = useState({
+    kategorija: getAsString(query.kategorija) || "Sve kategorije",
+  });
+
   const classes = useStyles();
+  const [selectedCategory, setSelectedCategory] = React.useState(
+    "Sve kategorije"
+  );
+  const [selectedIndex, setSelectedIndex] = React.useState(0);
+
+  const handleListItemClick = (
+    event: React.MouseEvent<HTMLButtonElement | HTMLDivElement>,
+    index: number
+  ) => {
+    if (event.currentTarget.classList.contains("MuiListItem-button")) {
+      setSelectedCategory(
+        (event.currentTarget.firstChild.firstChild as HTMLElement).innerText
+      );
+    }
+
+    if (event.currentTarget.classList.contains("MuiChip-root")) {
+      setSelectedCategory(
+        (event.currentTarget.firstChild.nextSibling as HTMLElement).innerText
+      );
+    }
+    setSelectedIndex(index);
+  };
+
+  useEffect(() => {
+    Router.push({
+      pathname: "/proizvodi",
+      query: { kategorija: selectedCategory },
+    });
+  }, [selectedCategory]);
+
   return (
     <Box maxWidth="1280px" height="100%" margin="auto" padding="0 24px">
       <Typography variant="h4" color="textSecondary" align="left" gutterBottom>
@@ -105,30 +166,29 @@ const Proizvodi = ({ products }) => {
 
         <div className={classes.categories}>
           <List>
-            {[
-              "Svi proizvodi",
-              "Montaža i zaštita hidrauličkih creva i priključaka",
-              "Hidrauličke Armature",
-              "Sanitarne Armature",
-              "Elektroinstalacije",
-              "Ciklon vazduha Lomardini",
-            ].map((text, index) => (
-              <ListItem button key={text}>
+            {categories.map((text, index) => (
+              <ListItem
+                button
+                key={text}
+                onClick={(event) => handleListItemClick(event, index)}
+                selected={selectedIndex === index ? true : false}
+                divider
+              >
                 <ListItemText primary={text} />
               </ListItem>
             ))}
           </List>
         </div>
         <div className={classes.chips}>
-          {[
-            "Svi proizvodi",
-            "Montaža i zaštita hidrauličkih creva i priključaka",
-            "Hidrauličke Armature",
-            "Sanitarne Armature",
-            "Elektroinstalacije",
-            "Ciklon vazduha Lomardini",
-          ].map((chip) => (
-            <Chip key={chip} icon={<AddIcon />} label={chip} />
+          {categories.map((chip, index) => (
+            <Chip
+              key={chip}
+              icon={<AddIcon />}
+              color={selectedIndex === index ? "secondary" : "default"}
+              label={chip}
+              onClick={(event) => handleListItemClick(event, index)}
+              deleteIcon={selectedIndex === index ? <DoneIcon /> : undefined}
+            />
           ))}
         </div>
         <main className={classes.content}>
@@ -139,8 +199,8 @@ const Proizvodi = ({ products }) => {
                 as={`/proizvodi/${p.product_id}`}
                 key={p.product_id}
               >
-                <a>
-                  <CardProd product={p} />;
+                <a className={classes.anchorTag}>
+                  <CardProd product={p} />
                 </a>
               </Link>
             );

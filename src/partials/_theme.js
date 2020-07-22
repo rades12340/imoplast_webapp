@@ -60,6 +60,13 @@ let theme = createMuiTheme({
         lineHeight: 1,
       },
     },
+    MuiBottomNavigationAction: {
+      root: {
+        "&$selected": {
+          backgroundColor: orange.A700,
+        },
+      },
+    },
   },
 });
 

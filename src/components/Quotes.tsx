@@ -13,6 +13,9 @@ import Swiper from "react-id-swiper";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    body: {
+      backgroundColor: "92doaf",
+    },
     root: {
       padding: `48px 0`,
     },
@@ -60,56 +63,55 @@ const Quotes = () => {
     },
   };
   return (
-    <Grid container spacing={2}>
-      <Grid item lg={12}>
-        <Box p={2} width="100%">
-          <Typography
-            variant="h3"
-            color="textSecondary"
-            align="center"
-            gutterBottom
-          >
-            Sta o nama kazu nasi partneri
-          </Typography>
-          <hr
-            style={{
-              width: "200px",
-              height: "5px",
-              backgroundColor: "orange",
-              textAlign: "center",
-            }}
-          />
-        </Box>
+    <div className={classes.body}>
+      <Grid container spacing={2}>
+        <Grid item lg={12}>
+          <Box p={2} width="100%">
+            <Typography
+              variant="h3"
+              color="textSecondary"
+              align="center"
+              gutterBottom
+            >
+              Sta o nama kazu nasi partneri
+            </Typography>
+            <hr
+              style={{
+                width: "200px",
+                height: "5px",
+                backgroundColor: "orange",
+                textAlign: "center",
+              }}
+            />
+          </Box>
+        </Grid>
+        <Grid
+          item
+          lg={12}
+          style={{
+            width: "100%",
+            maxWidth: "1800px",
+            margin: "auto",
+            overflow: "hidden",
+          }}
+        >
+          <Swiper {...params}>
+            <Box style={{ marginLeft: "10vw" }}>
+              <CardQuote />
+            </Box>
+            <Box>
+              <CardQuote />
+            </Box>
+            <Box>
+              <CardQuote />
+            </Box>
+            <Box>
+              <CardQuote />
+            </Box>
+          </Swiper>
+        </Grid>
       </Grid>
-      <Grid
-        item
-        lg={12}
-        style={{
-          width: "100%",
-          maxWidth: "1800px",
-          margin: "auto",
-          overflow: "hidden",
-        }}
-      >
-        <Swiper {...params}>
-          <Box style={{ marginLeft: "10vw" }}>
-            <CardQuote />
-          </Box>
-          <Box>
-            <CardQuote />
-          </Box>
-          <Box>
-            <CardQuote />
-          </Box>
-          <Box>
-            <CardQuote />
-          </Box>
-          <Box>
-            <CardQuote />
-          </Box>
-        </Swiper>
-      </Grid>
-    </Grid>
+    </div>
   );
 };
 
