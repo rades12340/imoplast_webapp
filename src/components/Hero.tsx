@@ -51,6 +51,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     img: {
       gridArea: "img",
+      overflow: "visible",
       background:
         "url(/images/Navojni cep za zastitu unutrasnjeg navoja1.png) no-repeat center center scroll",
       backgroundSize: "cover",
@@ -67,8 +68,11 @@ const useStyles = makeStyles((theme: Theme) =>
       height: "3em",
       width: "3em",
     },
+    marginHeaderText: {
+      marginBottom: theme.spacing(4),
+    },
     image: {
-      objectFit: "cover",
+      objectFit: "contain",
       height: "100%",
       width: "auto",
       maxWidth: "600px",
@@ -102,6 +106,7 @@ const Hero = () => {
           color="textSecondary"
           align="left"
           gutterBottom
+          className={classes.marginHeaderText}
         >
           Nas osnovni program cine proizvodi u oblasti nameske proizvodnje, kao
           i usluzno brizganje
@@ -131,7 +136,7 @@ const Hero = () => {
       <Box className={classes.img}>
         <img
           src={"/images/Navojni cep za zastitu unutrasnjeg navoja1.png"}
-          alt="Navojni cep za zastitu unutrasnjeg navoja1"
+          alt="Navojni cep za zastitu unutrasnjeg navoja"
           className={classes.image}
         />
       </Box>

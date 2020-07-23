@@ -18,6 +18,7 @@ import DoneIcon from "@material-ui/icons/Done";
 import { getAsString } from "../getAsString";
 import { useRouter } from "next/router";
 import Router from "next/router";
+import useSWR from "swr";
 
 interface CategoryData {
   name: string;
@@ -69,7 +70,7 @@ const useStyles = makeStyles((theme: Theme) =>
       flex: 1,
       padding: theme.spacing(3),
       display: "grid",
-      gridTemplateColumns: "repeat( auto-fit, minmax(250px, 1fr) )",
+      gridTemplateColumns: "repeat( auto-fit, minmax(250px, 320px) )",
       gridGap: theme.spacing(3),
       textDecoration: "none",
     },
@@ -109,7 +110,6 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const categories = [
-  "Svi proizvodi",
   "Montaža i zaštita hidrauličkih creva i priključaka",
   "Hidrauličke Armature",
   "Sanitarne Armature",
@@ -117,22 +117,23 @@ const categories = [
   "Ciklon vazduha Lomardini",
 ];
 
+const fetcher = (url) => fetch(url).then((r) => r.json());
+
 const Proizvodi = ({ products }) => {
   const { query } = useRouter();
 
   const [initialValues] = useState({
-    kategorija: getAsString(query.kategorija) || "Sve kategorije",
+    kategorija: getAsString(query.kategorija) || "Svi proizvodi",
   });
 
   const classes = useStyles();
   const [selectedCategory, setSelectedCategory] = React.useState(
-    "Sve kategorije"
+    initialValues.kategorija
   );
-  const [selectedIndex, setSelectedIndex] = React.useState(0);
 
   const handleListItemClick = (
-    event: React.MouseEvent<HTMLButtonElement | HTMLDivElement>,
-    index: number
+    event: React.MouseEvent<HTMLButtonElement | HTMLDivElement>
+    // index: number
   ) => {
     if (event.currentTarget.classList.contains("MuiListItem-button")) {
       setSelectedCategory(
@@ -145,8 +146,25 @@ const Proizvodi = ({ products }) => {
         (event.currentTarget.firstChild.nextSibling as HTMLElement).innerText
       );
     }
-    setSelectedIndex(index);
   };
+
+  const isProd =
+    process.env.NODE_ENV === "development"
+      ? "http://localhost:3000"
+      : "https://imoplast-webapp.vercel.app";
+
+  const { data, error } = useSWR(
+    isProd + "/api/products?kategorija=" + selectedCategory,
+    fetcher,
+    {
+      dedupingInterval: 60000,
+      initialData: selectedCategory === "Svi proizvodi" ? products : undefined,
+    }
+  );
+
+  useEffect(() => {
+    setSelectedCategory(initialValues.kategorija);
+  }, []);
 
   useEffect(() => {
     Router.push({
@@ -154,7 +172,7 @@ const Proizvodi = ({ products }) => {
       query: { kategorija: selectedCategory },
     });
   }, [selectedCategory]);
-
+  console.log(selectedCategory);
   return (
     <Box maxWidth="1280px" height="100%" margin="auto" padding="0 24px">
       <Typography variant="h4" color="textSecondary" align="left" gutterBottom>
@@ -166,12 +184,20 @@ const Proizvodi = ({ products }) => {
 
         <div className={classes.categories}>
           <List>
-            {categories.map((text, index) => (
+            <ListItem
+              button
+              onClick={(event) => handleListItemClick(event)}
+              selected={selectedCategory === "Svi proizvodi" ? true : false}
+              divider
+            >
+              <ListItemText primary={"Svi proizvodi"} />
+            </ListItem>
+            {categories.map((text) => (
               <ListItem
                 button
                 key={text}
-                onClick={(event) => handleListItemClick(event, index)}
-                selected={selectedIndex === index ? true : false}
+                onClick={(event) => handleListItemClick(event)}
+                selected={selectedCategory === text ? true : false}
                 divider
               >
                 <ListItemText primary={text} />
@@ -184,15 +210,15 @@ const Proizvodi = ({ products }) => {
             <Chip
               key={chip}
               icon={<AddIcon />}
-              color={selectedIndex === index ? "secondary" : "default"}
+              color={selectedCategory === chip ? "secondary" : "default"}
               label={chip}
-              onClick={(event) => handleListItemClick(event, index)}
-              deleteIcon={selectedIndex === index ? <DoneIcon /> : undefined}
+              onClick={(event) => handleListItemClick(event)}
+              deleteIcon={selectedCategory === chip ? <DoneIcon /> : undefined}
             />
           ))}
         </div>
         <main className={classes.content}>
-          {products.map((p) => {
+          {(data || []).map((p) => {
             return (
               <Link
                 href={"/proizvodi/[id]"}

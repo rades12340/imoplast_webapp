@@ -11,5 +11,4 @@ export default async function getAllProducts(req: NextApiRequest, res: NextApiRe
     } catch (error) {
         console.log(error)
     }
-
 };
