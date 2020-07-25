@@ -151,7 +151,7 @@ export default function PrimarySearchAppBar() {
             <Link href="/">
               <Button color="inherit">Pocetna strana</Button>
             </Link>
-            <Link href="/proizvodi">
+            <Link href="/proizvodi?kategorija=Svi proizvodi">
               <Button color="inherit">Proizvodi</Button>
             </Link>
             <Link href="/o_nama">

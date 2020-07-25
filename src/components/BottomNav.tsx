@@ -50,7 +50,7 @@ const MyComp = () => {
       <Link href="/">
         <BottomNavigationAction showLabel label="Pocetak" icon={<HomeIcon />} />
       </Link>
-      <Link href="/proizvodi">
+      <Link href="/proizvodi?kategorija=Svi proizvodi">
         <BottomNavigationAction
           showLabel
           label="Proizvodi"

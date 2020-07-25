@@ -113,7 +113,12 @@ const Hero = () => {
         </Typography>
         <Box>
           <Button
-            onClick={() => Router.push("/proizvodi")}
+            onClick={() =>
+              Router.push({
+                pathname: "/proizvodi",
+                query: { kategorija: "Svi proizvodi" },
+              })
+            }
             variant="contained"
             color="secondary"
             endIcon={<ArrowForwardIcon />}
