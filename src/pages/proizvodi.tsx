@@ -8,8 +8,7 @@ import {
   ListItem,
   Chip,
 } from "@material-ui/core";
-import { GetServerSideProps } from "next";
-import fetch from "isomorphic-fetch";
+import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import ListItemText from "@material-ui/core/ListItemText";
 import AddIcon from "@material-ui/icons/Add";
 import Link from "next/link";
@@ -19,10 +18,23 @@ import { getAsString } from "../getAsString";
 import { useRouter } from "next/router";
 import Router from "next/router";
 import useSWR from "swr";
+import { isProd } from "../partials/isProd";
+import { getAllCategories } from "../partials/getAllCategories";
+import { getAllProducts } from "../partials/getAllProducts";
+import { stringify, ParsedUrlQuery } from "querystring";
+import deepEqual from "fast-deep-equal";
+import Product from "./proizvodi/[id]";
 
-interface CategoryData {
+export interface Product {
+  product_id: string;
   name: string;
-  selected: boolean;
+  description: string;
+  image_src: string | null;
+}
+
+export interface ProductsProps {
+  products: Product[];
+  categories: string[];
 }
 
 const drawerWidth = 240;
@@ -70,7 +82,7 @@ const useStyles = makeStyles((theme: Theme) =>
       flex: 1,
       padding: theme.spacing(3),
       display: "grid",
-      gridTemplateColumns: "repeat( auto-fit, minmax(250px, 320px) )",
+      gridTemplateColumns: "repeat( auto-fit, minmax(250px, 280px) )",
       gridGap: theme.spacing(3),
       textDecoration: "none",
     },
@@ -109,25 +121,16 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const categories = [
-  "Montaža i zaštita hidrauličkih creva i priključaka",
-  "Hidrauličke Armature",
-  "Sanitarne Armature",
-  "Elektroinstalacije",
-  "Ciklon vazduha Lomardini",
-];
-
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
-const Proizvodi = ({ products }) => {
+const Proizvodi = ({ products, categories }: ProductsProps) => {
   const { query } = useRouter();
-
   const [initialValues] = useState({
     kategorija: getAsString(query.kategorija) || "Svi proizvodi",
   });
 
   const classes = useStyles();
-  const [selectedCategory, setSelectedCategory] = React.useState(
+  const [selectedCategory, setSelectedCategory] = React.useState<string>(
     initialValues.kategorija
   );
 
@@ -148,20 +151,15 @@ const Proizvodi = ({ products }) => {
     }
   };
 
-  const isProd =
-    process.env.NODE_ENV === "development"
-      ? "http://localhost:3000"
-      : "https://imoplast-webapp.vercel.app";
-
-  const { data, error } = useSWR(
-    isProd + "/api/products?kategorija=" + selectedCategory,
+  const { data } = useSWR(
+    isProd + "/api/products?kategorija=" + query.kategorija,
     fetcher,
     {
       dedupingInterval: 60000,
-      initialData: selectedCategory === "Svi proizvodi" ? products : undefined,
+      initialData: products,
     }
   );
-
+  console.log("data", data);
   useEffect(() => {
     setSelectedCategory(initialValues.kategorija);
   }, []);
@@ -172,7 +170,7 @@ const Proizvodi = ({ products }) => {
       query: { kategorija: selectedCategory },
     });
   }, [selectedCategory]);
-  console.log(selectedCategory);
+
   return (
     <Box maxWidth="1280px" height="100%" margin="auto" padding="0 24px">
       <Typography variant="h4" color="textSecondary" align="left" gutterBottom>
@@ -206,7 +204,18 @@ const Proizvodi = ({ products }) => {
           </List>
         </div>
         <div className={classes.chips}>
-          {categories.map((chip, index) => (
+          <Chip
+            icon={<AddIcon />}
+            color={
+              selectedCategory === "Svi proizvodi" ? "secondary" : "default"
+            }
+            label="Svi proizvodi"
+            onClick={(event) => handleListItemClick(event)}
+            deleteIcon={
+              selectedCategory === "Svi proizvodi" ? <DoneIcon /> : undefined
+            }
+          />
+          {categories.map((chip) => (
             <Chip
               key={chip}
               icon={<AddIcon />}
@@ -218,7 +227,7 @@ const Proizvodi = ({ products }) => {
           ))}
         </div>
         <main className={classes.content}>
-          {(data || []).map((p) => {
+          {data.map((p) => {
             return (
               <Link
                 href={"/proizvodi/[id]"}
@@ -237,14 +246,17 @@ const Proizvodi = ({ products }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const isProd =
-    process.env.NODE_ENV === "development"
-      ? "http://localhost:3000"
-      : "https://imoplast-webapp.vercel.app";
-  const res = await fetch(`${isProd}/api/products`);
-  const data = await res.json();
-  return { props: { products: data } };
+export const getServerSideProps: GetServerSideProps = async (
+  ctx: GetServerSidePropsContext
+) => {
+  const kategorija = getAsString(ctx.query.kategorija);
+
+  const [categories, products] = await Promise.all([
+    getAllCategories(),
+    getAllProducts(kategorija),
+  ]);
+
+  return { props: { categories, products } };
 };
 
 export default Proizvodi;

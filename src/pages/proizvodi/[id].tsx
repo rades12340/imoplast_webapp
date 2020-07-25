@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
       gridTemplateRows: "1fr",
       [theme.breakpoints.down("sm")]: {
         gridTemplateColumns: "1fr",
-        gridTemplateRows: "1fr 1fr",
+        gridTemplateRows: "40% 1fr",
       },
     },
     image: {},
@@ -75,7 +75,7 @@ const Product = ({ product }: ProductPropsInterface) => {
         <Link
           onClick={(e) => {
             e.preventDefault();
-            router.push("/proizvodi");
+            router.back();
           }}
           style={{
             color: "white",
@@ -83,7 +83,7 @@ const Product = ({ product }: ProductPropsInterface) => {
             left: "1.5em",
             top: "1.5em",
             cursor: "pointer",
-            fontSize: "1.5em",
+            fontSize: "1.3em",
             display: "flex",
           }}
         >

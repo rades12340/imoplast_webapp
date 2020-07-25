@@ -75,7 +75,7 @@ const CardProd = ({ product }) => {
       <CardActionArea className={classes.actionArea}>
         <CardMedia
           className={classes.media}
-          image={product.image_src}
+          image={product.image_src || "/images/no-image.jpg"}
           title="Contemplative Reptile"
         />
         <CardContent>
