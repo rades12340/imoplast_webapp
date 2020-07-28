@@ -18,6 +18,7 @@ import { isProd } from "../../partials/isProd";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
+      marginTop: "-79px",
       height: "100vh",
       width: "100%",
       display: "grid",
