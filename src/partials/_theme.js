@@ -48,12 +48,7 @@ let theme = createMuiTheme({
         },
       },
     },
-    MuiAppBar: {
-      root: {
-        maxWidth: "1280px",
-        margin: "auto",
-      },
-    },
+
     MuiListItemText: {
       primary: {
         fontSize: "1em",

@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: "center",
     },
     media: {
-      maxHeight: "64px",
+      maxHeight: "58px",
       height: "7vh",
     },
     link: {
@@ -56,7 +56,7 @@ export default () => {
             <img
               className={classes.media}
               src="/images/logo.png"
-              title="logo-company"
+              title="Immoplast nameski proizvodi od plastike"
             />
             <Typography
               variant="body2"

@@ -163,8 +163,7 @@ const Onama = () => {
               align="left"
               gutterBottom
             >
-              S postovanjem, <br /> Marko Petrovic,
-              <br /> Direktor Imoplast doo.
+              S postovanjem, <br /> Marko Petrovic
             </Typography>
           </Paper>
         </Grid>

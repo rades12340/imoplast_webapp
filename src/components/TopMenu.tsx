@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   fade,
   makeStyles,
@@ -14,6 +14,7 @@ import Menu from "@material-ui/core/Menu";
 import BookmarkIcon from "@material-ui/icons/Bookmark";
 import { CardMedia, Button, Container } from "@material-ui/core";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -21,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
     },
     media: {
-      maxHeight: "64px",
+      maxHeight: "58px",
       height: "7vh",
       width: "auto",
     },
@@ -74,7 +75,7 @@ const useStyles = makeStyles((theme: Theme) =>
     sectionDesktop: {
       display: "none",
       zIndex: theme.zIndex.drawer + 1,
-      maxWidth: "900px",
+      marginRight: "auto",
       [theme.breakpoints.up("md")]: {
         display: "flex",
       },
@@ -88,17 +89,35 @@ const useStyles = makeStyles((theme: Theme) =>
     appBar: {
       backgroundColor: "transparent",
       color: "rgb(20, 51, 2)",
+      height: "70px",
+      transition: "all 0.25s",
+    },
+    active: {
+      boxSizing: "border-box",
+      borderBottom: `4px solid ${theme.palette.text.primary}`,
+    },
+    scroll: {
+      top: 0,
+      width: "100%",
+      height: "79px",
+      backgroundColor: "transparent",
+      backdropFilter: "blur(5px)",
+      color: theme.palette.text.secondary,
+      transition: "all 0.25s",
     },
   })
 );
 
 export default function PrimarySearchAppBar() {
+  const router = useRouter();
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [
     mobileMoreAnchorEl,
     setMobileMoreAnchorEl,
   ] = React.useState<null | HTMLElement>(null);
+  const [listener, setListener] = useState(null);
+  const [scroll, setScroll] = useState(false);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -110,6 +129,18 @@ export default function PrimarySearchAppBar() {
   const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
+
+  useEffect(() => {
+    const element = document.addEventListener("scroll", (e) => {
+      const scrolled = document.scrollingElement.scrollTop;
+      if (scrolled >= 70) {
+        setScroll(true);
+      } else {
+        setScroll(false);
+      }
+    });
+    setListener(element);
+  }, []);
 
   const mobileMenuId = "primary-search-account-menu-mobile";
   const renderMobileMenu = (
@@ -134,38 +165,63 @@ export default function PrimarySearchAppBar() {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static" elevation={0} className={classes.appBar}>
+      <AppBar
+        position="fixed"
+        elevation={scroll ? 2 : 0}
+        className={!scroll ? classes.appBar : classes.scroll}
+        style={{ left: 0, top: 0 }}
+      >
         <Toolbar
           style={{
             position: "relative",
             padding: "10px 24px",
+            width: "100%",
+            maxWidth: "1280px",
+            margin: "auto",
           }}
         >
           <img
             className={classes.media}
             src="/images/logo.png"
-            title="logo-company"
+            title="Immoplast nameski proizvodi od plastike"
+            style={{ marginLeft: "auto" }}
           />
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <Link href="/">
-              <Button color="inherit">Pocetna strana</Button>
+              <Button
+                color="inherit"
+                className={router.pathname === "/" ? classes.active : ""}
+              >
+                Početna strana
+              </Button>
             </Link>
             <Link href="/proizvodi?kategorija=Svi proizvodi">
-              <Button color="inherit">Proizvodi</Button>
+              <Button
+                color="inherit"
+                className={
+                  router.pathname === "/proizvodi" ? classes.active : ""
+                }
+              >
+                Proizvodi
+              </Button>
             </Link>
             <Link href="/o_nama">
-              <Button color="inherit">O nama</Button>
+              <Button
+                color="inherit"
+                className={router.pathname == "/o_nama" ? classes.active : ""}
+              >
+                O nama
+              </Button>
             </Link>
-            {/* <Link href="/partneri">
-              <Button color="inherit">Partneri</Button>
-            </Link> */}
+
             <IconButton aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="secondary">
                 <BookmarkIcon fontSize="large" />
               </Badge>
             </IconButton>
           </div>
+
           <div className={classes.sectionMobile}>
             <IconButton
               aria-label="show more"

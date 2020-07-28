@@ -10,6 +10,7 @@ import Footer from "../components/Footer";
 import "./styles.css";
 import "swiper/css/swiper.css";
 import { useRouter } from "next/router";
+import { Box } from "@material-ui/core";
 
 export default function MyApp(props) {
   const router = useRouter();
@@ -39,12 +40,18 @@ export default function MyApp(props) {
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/css/swiper.css"
         />
+        <link
+          href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&display=swap"
+          rel="stylesheet"
+        ></link>
       </Head>
       <ThemeProvider theme={theme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
         {router.pathname !== "/proizvodi/[id]" ? <TopMenu /> : null}
-        <Component {...pageProps} />
+        <Box marginTop="79px">
+          <Component {...pageProps} />
+        </Box>
         {router.pathname !== "/proizvodi/[id]" ? <BottomNav /> : null}
         {router.pathname !== "/proizvodi/[id]" ? <Footer /> : null}
       </ThemeProvider>

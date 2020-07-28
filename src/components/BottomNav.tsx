@@ -12,6 +12,7 @@ import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import InfoIcon from "@material-ui/icons/Info";
 import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
 import { orange } from "@material-ui/core/colors";
+import { useRouter } from "next/router";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -32,10 +33,14 @@ const useStyles = makeStyles((theme: Theme) =>
     selected: {
       backgroundColor: orange.A700,
     },
+    active: {
+      color: "orange",
+    },
   })
 );
 
 const MyComp = () => {
+  const router = useRouter();
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   return (
@@ -48,17 +53,28 @@ const MyComp = () => {
       className={classes.bottomNav}
     >
       <Link href="/">
-        <BottomNavigationAction showLabel label="Pocetak" icon={<HomeIcon />} />
+        <BottomNavigationAction
+          showLabel
+          label="Pocetak"
+          icon={<HomeIcon />}
+          className={router.pathname === "/" ? classes.active : ""}
+        />
       </Link>
       <Link href="/proizvodi?kategorija=Svi proizvodi">
         <BottomNavigationAction
           showLabel
           label="Proizvodi"
           icon={<ShoppingBasketIcon />}
+          className={router.pathname === "/proizvodi" ? classes.active : ""}
         />
       </Link>
       <Link href="/o_nama">
-        <BottomNavigationAction showLabel label="O nama" icon={<InfoIcon />} />
+        <BottomNavigationAction
+          showLabel
+          label="O nama"
+          icon={<InfoIcon />}
+          className={router.pathname === "/o_nama" ? classes.active : ""}
+        />
       </Link>
       {/* <Link href="/partneri">
         <a>

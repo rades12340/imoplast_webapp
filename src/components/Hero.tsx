@@ -67,6 +67,7 @@ const useStyles = makeStyles((theme: Theme) =>
     link: {
       height: "3em",
       width: "3em",
+      marginRight: theme.spacing(2),
     },
     marginHeaderText: {
       marginBottom: theme.spacing(4),
@@ -84,6 +85,10 @@ const useStyles = makeStyles((theme: Theme) =>
         maxWidth: "100%",
       },
     },
+    heroText: {
+      fontFamily: "PT Serif",
+      fontWeight: 700,
+    },
   })
 );
 
@@ -94,7 +99,7 @@ const Hero = () => {
     <Container className={classes.root}>
       <Box className={classes.header}>
         <Typography
-          variant="h3"
+          variant="h2"
           color="textSecondary"
           align="left"
           gutterBottom

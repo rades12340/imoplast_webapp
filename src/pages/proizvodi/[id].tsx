@@ -13,6 +13,7 @@ import {
   createStyles,
 } from "@material-ui/core";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import { isProd } from "../../partials/isProd";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -92,7 +93,7 @@ const Product = ({ product }: ProductPropsInterface) => {
       </div>
       <div className={classes.desc}>
         <Typography
-          variant="h6"
+          variant="h3"
           color="textSecondary"
           align="left"
           gutterBottom
@@ -113,10 +114,6 @@ const Product = ({ product }: ProductPropsInterface) => {
 };
 
 export async function getStaticPaths() {
-  const isProd =
-    process.env.NODE_ENV === "development"
-      ? "http://localhost:3000"
-      : "https://imoplast-webapp.vercel.app";
   const res = await fetch(`${isProd}/api/products`);
   const products = await res.json();
 
@@ -130,10 +127,6 @@ export async function getStaticPaths() {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const isProd =
-    process.env.NODE_ENV === "development"
-      ? "http://localhost:3000"
-      : "https://imoplast-webapp.vercel.app";
   const res = await fetch(`${isProd}/api/products/${params.id}`);
   const product = await res.json();
   return { props: { product: product[0] } };
