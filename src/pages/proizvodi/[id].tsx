@@ -1,19 +1,13 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useRouter, NextRouter } from "next/router";
 import { GetStaticProps } from "next";
 import fetch from "isomorphic-fetch";
 import Link from "@material-ui/core/Link";
-import {
-  Box,
-  Typography,
-  Paper,
-  Grid,
-  makeStyles,
-  Theme,
-  createStyles,
-} from "@material-ui/core";
+import { Typography, makeStyles, Theme, createStyles } from "@material-ui/core";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { isProd } from "../../partials/isProd";
+import { motion } from "framer-motion";
+import useWindowSize from "../../hooks/useWindowSize";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,13 +23,12 @@ const useStyles = makeStyles((theme: Theme) =>
         gridTemplateRows: "40% 1fr",
       },
     },
-    image: {},
     desc: {
       display: "flex",
       justifyContent: "center",
       alignItems: "left",
       flexDirection: "column",
-      padding: theme.spacing(3),
+      padding: `46px`,
     },
   })
 );
@@ -51,18 +44,38 @@ interface ProductPropsInterface {
   product: ProductProps;
 }
 
+const variants = {
+  mobileInitial: {
+    y: "100vh",
+  },
+  mobileAnimate: {
+    y: 0,
+  },
+  desktopInitial: {
+    x: "-100vw",
+  },
+  desktopAnimate: {
+    x: 0,
+  },
+};
+
 const Product = ({ product }: ProductPropsInterface) => {
   const classes = useStyles();
+  const size = useWindowSize();
   const router: NextRouter = useRouter();
-  // If the page is not yet generated, this will be displayed
-  // initially until getStaticProps() finishes running
 
   if (router.isFallback) {
     return <h1>Loading</h1>;
   }
 
   return (
-    <div className={classes.root}>
+    <motion.div
+      className={classes.root}
+      variants={variants}
+      initial={false}
+      animate={size.width < 768 ? "mobileAnimate" : "desktopAnimate"}
+      exit={{ opacity: 0 }}
+    >
       <div
         style={{
           position: "relative",
@@ -110,7 +123,7 @@ const Product = ({ product }: ProductPropsInterface) => {
           {product.description}
         </Typography>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

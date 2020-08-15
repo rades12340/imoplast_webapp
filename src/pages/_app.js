@@ -10,7 +10,7 @@ import Footer from "../components/Footer";
 import "./styles.css";
 import "swiper/css/swiper.css";
 import { useRouter } from "next/router";
-import { Box } from "@material-ui/core";
+import { motion } from "framer-motion";
 
 export default function MyApp(props) {
   const router = useRouter();
@@ -49,9 +49,22 @@ export default function MyApp(props) {
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
         {router.pathname !== "/proizvodi/[id]" ? <TopMenu /> : null}
-        <Box marginTop="79px">
+        <motion.div
+          key={router.route}
+          style={{ marginTop: "79px" }}
+          initial="pageInitial"
+          animate="pageAnimate"
+          variants={{
+            pageInitial: {
+              opacity: 0,
+            },
+            pageAnimate: {
+              opacity: 1,
+            },
+          }}
+        >
           <Component {...pageProps} />
-        </Box>
+        </motion.div>
         {router.pathname !== "/proizvodi/[id]" ? <BottomNav /> : null}
         {router.pathname !== "/proizvodi/[id]" ? <Footer /> : null}
       </ThemeProvider>

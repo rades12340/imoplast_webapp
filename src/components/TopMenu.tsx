@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
     },
     media: {
-      maxHeight: "58px",
+      maxHeight: "40px",
       height: "7vh",
       width: "auto",
     },

@@ -93,7 +93,7 @@ const FourKeyParts = () => {
                   )
                 }
               >
-                Detaljnije
+                <a>Detaljnije</a>
               </Link>
             </Typography>
           </Paper>
@@ -116,7 +116,7 @@ const FourKeyParts = () => {
                   router.push("/proizvodi?kategorija=Elektroinstalacije")
                 }
               >
-                Detaljnije
+                <a>Detaljnije</a>
               </Link>
             </Typography>
           </Paper>
@@ -139,7 +139,7 @@ const FourKeyParts = () => {
                   router.push("/proizvodi?kategorija=Hidrauličke%20Armature")
                 }
               >
-                Detaljnije
+                <a>Detaljnije</a>
               </Link>
             </Typography>
           </Paper>
@@ -161,7 +161,7 @@ const FourKeyParts = () => {
                   router.push("/proizvodi?kategorija=Sanitarne%20Armature")
                 }
               >
-                Detaljnije
+                <a>Detaljnije</a>
               </Link>
             </Typography>
           </Paper>

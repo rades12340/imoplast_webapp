@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
       bottom: 0,
       width: "100%",
       height: "10vh",
+      maxHeight: "63px",
       margin: "auto",
       borderRadius: "5px",
       boxShadow: "10px -4px -2px black",

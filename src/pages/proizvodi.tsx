@@ -21,9 +21,8 @@ import useSWR from "swr";
 import { isProd } from "../partials/isProd";
 import { getAllCategories } from "../partials/getAllCategories";
 import { getAllProducts } from "../partials/getAllProducts";
-import { stringify, ParsedUrlQuery } from "querystring";
-import deepEqual from "fast-deep-equal";
 import Product from "./proizvodi/[id]";
+import { AnimatePresence } from "framer-motion";
 
 export interface Product {
   product_id: string;
@@ -82,7 +81,7 @@ const useStyles = makeStyles((theme: Theme) =>
       flex: 1,
       padding: theme.spacing(3),
       display: "grid",
-      gridTemplateColumns: "repeat( auto-fit, minmax(250px, 280px) )",
+      gridTemplateColumns: "repeat( auto-fit, minmax(250px, 1fr) )",
       gridGap: theme.spacing(3),
       textDecoration: "none",
     },
@@ -117,6 +116,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     anchorTag: {
       textDecoration: "none",
+    },
+    container: {
+      maxWidth: "1232px",
+      margin: "auto",
     },
   })
 );
@@ -159,7 +162,7 @@ const Proizvodi = ({ products, categories }: ProductsProps) => {
       initialData: products,
     }
   );
-  console.log("data", data);
+
   useEffect(() => {
     setSelectedCategory(initialValues.kategorija);
   }, []);
@@ -172,7 +175,7 @@ const Proizvodi = ({ products, categories }: ProductsProps) => {
   }, [selectedCategory]);
 
   return (
-    <Box maxWidth="1280px" height="100%" margin="auto" padding="0 24px">
+    <Box className={classes.container}>
       <Typography variant="h4" color="textSecondary" align="left" gutterBottom>
         Proizvodni asortiman
       </Typography>
@@ -227,19 +230,21 @@ const Proizvodi = ({ products, categories }: ProductsProps) => {
           ))}
         </div>
         <main className={classes.content}>
-          {data.map((p) => {
-            return (
-              <Link
-                href={"/proizvodi/[id]"}
-                as={`/proizvodi/${p.product_id}`}
-                key={p.product_id}
-              >
-                <a className={classes.anchorTag}>
-                  <CardProd product={p} />
-                </a>
-              </Link>
-            );
-          })}
+          <AnimatePresence exitBeforeEnter>
+            {data.map((p) => {
+              return (
+                <Link
+                  href={"/proizvodi/[id]"}
+                  as={`/proizvodi/${p.product_id}`}
+                  key={p.product_id}
+                >
+                  <a className={classes.anchorTag}>
+                    <CardProd product={p} />
+                  </a>
+                </Link>
+              );
+            })}
+          </AnimatePresence>
         </main>
       </div>
     </Box>

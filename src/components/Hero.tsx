@@ -12,7 +12,7 @@ import { Typography } from "@material-ui/core";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import InstagramIcon from "@material-ui/icons/Instagram";
 import TwitterIcon from "@material-ui/icons/Twitter";
-
+import { motion } from "framer-motion";
 import Router from "next/router";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -23,15 +23,15 @@ const useStyles = makeStyles((theme: Theme) =>
       maxWidth: "1280px",
       maxHeight: "700px",
       margin: "auto",
-      gridTemplateColumns: "repeat(3, 1fr)",
+      gridTemplateColumns: "repeat(2, 1fr)",
       gridTemplateRows: "1fr 1fr 6em",
-      gridTemplateAreas: `"header header img"
-          "header header img"
-          "links  links  img"`,
+      gridTemplateAreas: `"header img"
+          "header img"
+          "links  img"`,
       [theme.breakpoints.down("sm")]: {
-        gridTemplateAreas: `"img img img"
-          "header header header"
-          "links  links  links"`,
+        gridTemplateAreas: `"img img"
+          "header header"
+          "links  links"`,
       },
     },
     header: {
@@ -51,18 +51,12 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     img: {
       gridArea: "img",
+      position: "relative",
       overflow: "visible",
-      background:
-        "url(/images/Navojni cep za zastitu unutrasnjeg navoja1.png) no-repeat center center scroll",
-      backgroundSize: "cover",
-      height: "100%",
-      width: "auto",
-      [theme.breakpoints.down("sm")]: {
-        height: "100%",
-        display: "flex",
-        justifyContent: "center",
-        maxHeight: "25vh",
-      },
+      boxSizing: "border-box",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
     },
     link: {
       height: "3em",
@@ -73,21 +67,24 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: theme.spacing(4),
     },
     image: {
-      objectFit: "contain",
-      height: "100%",
-      width: "auto",
-      maxWidth: "600px",
-      objectPosition: "left",
+      objectFit: "cover",
+      height: "auto",
+      width: "100%",
+
+      maxWidth: "500px",
+      objectPosition: "center",
       [theme.breakpoints.down("md")]: {
-        maxWidth: "400px",
+        maxWidth: "500px",
       },
       [theme.breakpoints.down("sm")]: {
-        maxWidth: "100%",
+        maxHeight: "30vh",
+        width: "auto",
       },
     },
     heroText: {
       fontFamily: "PT Serif",
       fontWeight: 700,
+      fontSize: "5.5em",
     },
   })
 );
@@ -103,11 +100,12 @@ const Hero = () => {
           color="textSecondary"
           align="left"
           gutterBottom
+          className={classes.heroText}
         >
-          Dugogodišnje iskustvo u oblasti namenske proizvodnje
+          Izrada namenskih proizvoda
         </Typography>
         <Typography
-          variant="h5"
+          variant="body1"
           color="textSecondary"
           align="left"
           gutterBottom
@@ -144,8 +142,8 @@ const Hero = () => {
         </a>
       </Box>
       <Box className={classes.img}>
-        <img
-          src={"/images/Navojni cep za zastitu unutrasnjeg navoja1.png"}
+        <motion.img
+          src={"/images/Navojni cep za zastitu unutrasnjeg navoja.png"}
           alt="Navojni cep za zastitu unutrasnjeg navoja"
           className={classes.image}
         />

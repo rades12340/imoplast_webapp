@@ -5,6 +5,7 @@
     "@zeit/next-sass": "^1.0.1",
     "dotenv": "^8.2.0",
     "formik": "^2.1.5",
+    "framer-motion": "^2.3.0",
     "isomorphic-fetch": "^2.2.1",
     "material-ui-image": "^3.2.3",
     "mysql": "^2.18.1",
