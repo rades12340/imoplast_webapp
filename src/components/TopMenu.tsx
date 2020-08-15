@@ -76,13 +76,13 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "none",
       zIndex: theme.zIndex.drawer + 1,
       marginRight: "auto",
-      [theme.breakpoints.up("md")]: {
+      [theme.breakpoints.up("sm")]: {
         display: "flex",
       },
     },
     sectionMobile: {
       display: "flex",
-      [theme.breakpoints.up("md")]: {
+      [theme.breakpoints.up("sm")]: {
         display: "none",
       },
     },
@@ -91,7 +91,7 @@ const useStyles = makeStyles((theme: Theme) =>
       color: "rgb(20, 51, 2)",
       height: "10vh",
       maxHeight: "58px",
-      transition: "all ease 0.25s",
+      transition: "backdrop-filter background-color height  ease 0.25s",
     },
     active: {
       boxSizing: "border-box",
@@ -104,7 +104,7 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: "transparent",
       backdropFilter: "blur(5px)",
       color: theme.palette.text.secondary,
-      transition: "backdrop-filter background-color ease 0.25s",
+      transition: "backdrop-filter background-color height ease 0.25s",
     },
     toolbar: {
       position: "relative",
