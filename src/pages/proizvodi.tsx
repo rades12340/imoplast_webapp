@@ -84,6 +84,9 @@ const useStyles = makeStyles((theme: Theme) =>
       gridTemplateColumns: "repeat( auto-fit, minmax(250px, 1fr) )",
       gridGap: theme.spacing(3),
       textDecoration: "none",
+      [theme.breakpoints.down("xs")]: {
+        padding: `24px 0`,
+      },
     },
     heading: {
       fontSize: theme.typography.pxToRem(15),
