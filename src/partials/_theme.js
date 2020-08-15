@@ -26,6 +26,11 @@ let theme = createMuiTheme({
     default: "linear-gradient(to top, #faf9f9, #ffffff)",
   },
   overrides: {
+    MuiContainer: {
+      root: {
+        maxWidth: "1280px",
+      },
+    },
     MuiAppBar: {
       colorPrimary: {
         backgroundColor: "transparent",
@@ -48,7 +53,6 @@ let theme = createMuiTheme({
         },
       },
     },
-
     MuiListItemText: {
       primary: {
         fontSize: "1em",

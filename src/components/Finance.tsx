@@ -12,9 +12,6 @@ import {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      padding: `48px 8px 0`,
-    },
     avatar: {
       backgroundColor: theme.palette.text.primary,
       width: theme.spacing(7),
@@ -31,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export default () => {
   const classes = useStyles();
   return (
-    <Container className={classes.root}>
+    <Container style={{ paddingTop: "32px", paddingBottom: "32px" }}>
       <Grid container spacing={3}>
         <Grid item lg={12}>
           <Typography

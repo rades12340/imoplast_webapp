@@ -7,6 +7,7 @@ import {
   List,
   ListItem,
   Chip,
+  Container,
 } from "@material-ui/core";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -41,6 +42,7 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
+      padding: 0,
       display: "flex",
       [theme.breakpoints.down("md")]: {
         flexDirection: "column",
@@ -50,7 +52,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "none",
       [theme.breakpoints.down("md")]: {
         display: "flex",
-        justifyContent: "center",
+        justifyContent: "left",
         flexWrap: "wrap",
         "& > *": {
           margin: theme.spacing(0.5),
@@ -79,13 +81,13 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     content: {
       flex: 1,
-      padding: theme.spacing(3),
+      padding: `16px 0 32px 16px`,
       display: "grid",
       gridTemplateColumns: "repeat( auto-fit, minmax(250px, 1fr) )",
       gridGap: theme.spacing(3),
       textDecoration: "none",
       [theme.breakpoints.down("xs")]: {
-        padding: `24px 0`,
+        padding: `16px 0 32px`,
       },
     },
     heading: {
@@ -119,10 +121,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     anchorTag: {
       textDecoration: "none",
-    },
-    container: {
-      maxWidth: "1232px",
-      margin: "auto",
     },
   })
 );
@@ -178,7 +176,7 @@ const Proizvodi = ({ products, categories }: ProductsProps) => {
   }, [selectedCategory]);
 
   return (
-    <Box className={classes.container}>
+    <Container>
       <Typography variant="h4" color="textSecondary" align="left" gutterBottom>
         Proizvodni asortiman
       </Typography>
@@ -250,7 +248,7 @@ const Proizvodi = ({ products, categories }: ProductsProps) => {
           </AnimatePresence>
         </main>
       </div>
-    </Box>
+    </Container>
   );
 };
 

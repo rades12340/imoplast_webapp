@@ -19,10 +19,10 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: "grid",
-      height: "80vh",
-      maxWidth: "1280px",
+      height: "90vh",
       maxHeight: "700px",
-      margin: "auto",
+      // margin: "auto",
+      // padding: "0px",
       gridTemplateColumns: "repeat(2, 1fr)",
       gridTemplateRows: "1fr 1fr 6em",
       gridTemplateAreas: `"header img"
@@ -70,7 +70,6 @@ const useStyles = makeStyles((theme: Theme) =>
       objectFit: "cover",
       height: "auto",
       width: "100%",
-
       maxWidth: "500px",
       objectPosition: "center",
       [theme.breakpoints.down("md")]: {
@@ -84,7 +83,6 @@ const useStyles = makeStyles((theme: Theme) =>
     heroText: {
       fontFamily: "PT Serif",
       fontWeight: 700,
-      fontSize: "5.5em",
     },
   })
 );
@@ -96,7 +94,7 @@ const Hero = () => {
     <Container className={classes.root}>
       <Box className={classes.header}>
         <Typography
-          variant="h2"
+          variant="h1"
           color="textSecondary"
           align="left"
           gutterBottom

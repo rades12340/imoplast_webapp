@@ -7,13 +7,13 @@ import {
   makeStyles,
   Theme,
   createStyles,
+  Container,
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     grid: {
       display: "grid",
-      gridGap: "24px",
       gridTemplateColumns: "1fr",
       gridTemplateRows: "1fr 1fr",
       [theme.breakpoints.down("md")]: {
@@ -84,7 +84,7 @@ const Onama = () => {
   const classes = useStyles();
 
   return (
-    <Box maxWidth="1280px" height="100%" margin="auto" padding="0 24px">
+    <Container style={{ paddingBottom: "32px" }}>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={12} md={12} lg={12}>
           <Typography
@@ -167,7 +167,15 @@ const Onama = () => {
             </Typography>
           </Paper>
         </Grid>
-        <Grid item container md={12} lg={4} className={classes.grid}>
+        <Grid
+          item
+          container
+          xs={12}
+          sm={12}
+          md={12}
+          lg={4}
+          className={classes.grid}
+        >
           <Paper elevation={3} className={classes.firstBox}></Paper>
           <Paper elevation={3} className={classes.secondBox}></Paper>
         </Grid>
@@ -209,7 +217,7 @@ const Onama = () => {
           </Paper>
         </Grid>
       </Grid>
-    </Box>
+    </Container>
   );
 };
 

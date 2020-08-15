@@ -6,6 +6,5 @@ export const getAllCategories = async () => {
 
     const allCategories = await data.json();
     const categories = allCategories.map(e => e.category_name)
-    console.log(categories)
     return categories
 }

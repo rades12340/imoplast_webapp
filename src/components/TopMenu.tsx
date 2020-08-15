@@ -12,7 +12,7 @@ import Badge from "@material-ui/core/Badge";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import BookmarkIcon from "@material-ui/icons/Bookmark";
-import { CardMedia, Button, Container } from "@material-ui/core";
+import { Button, Container } from "@material-ui/core";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -89,8 +89,9 @@ const useStyles = makeStyles((theme: Theme) =>
     appBar: {
       backgroundColor: "transparent",
       color: "rgb(20, 51, 2)",
-      height: "70px",
-      transition: "all 0.25s",
+      height: "10vh",
+      maxHeight: "58px",
+      transition: "all ease 0.25s",
     },
     active: {
       boxSizing: "border-box",
@@ -99,11 +100,20 @@ const useStyles = makeStyles((theme: Theme) =>
     scroll: {
       top: 0,
       width: "100%",
-      height: "79px",
+      height: "65px",
       backgroundColor: "transparent",
       backdropFilter: "blur(5px)",
       color: theme.palette.text.secondary,
-      transition: "all 0.25s",
+      transition: "backdrop-filter background-color ease 0.25s",
+    },
+    toolbar: {
+      position: "relative",
+      padding: "10px 0px",
+      width: "100%",
+      maxWidth: "1280px",
+      paddingLeft: "16px",
+      paddingRight: "16px",
+      margin: "auto",
     },
   })
 );
@@ -164,22 +174,14 @@ export default function PrimarySearchAppBar() {
   );
 
   return (
-    <div className={classes.grow}>
+    <Container className={classes.grow}>
       <AppBar
         position="fixed"
         elevation={scroll ? 2 : 0}
         className={!scroll ? classes.appBar : classes.scroll}
         style={{ left: 0, top: 0 }}
       >
-        <Toolbar
-          style={{
-            position: "relative",
-            padding: "10px 24px",
-            width: "100%",
-            maxWidth: "1280px",
-            margin: "auto",
-          }}
-        >
+        <Toolbar className={classes.toolbar}>
           <img
             className={classes.media}
             src="/images/logo.png"
@@ -239,6 +241,6 @@ export default function PrimarySearchAppBar() {
       </AppBar>
       {renderMobileMenu}
       {/* {renderMenu} */}
-    </div>
+    </Container>
   );
 }

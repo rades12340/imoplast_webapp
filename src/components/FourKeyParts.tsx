@@ -10,21 +10,12 @@ import {
   createStyles,
   Theme,
 } from "@material-ui/core";
-import AssignmentIcon from "@material-ui/icons/Assignment";
+
 import Link from "@material-ui/core/Link";
 import { useRouter } from "next/router";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      padding: `48px 8px 24px`,
-    },
-    avatar: {
-      backgroundColor: theme.palette.text.primary,
-      width: theme.spacing(7),
-      height: theme.spacing(7),
-      marginRight: theme.spacing(2),
-    },
     item: { position: "relative" },
     paper: {
       boxSizing: "border-box",
@@ -43,7 +34,7 @@ const FourKeyParts = () => {
   const router = useRouter();
   const classes = useStyles();
   return (
-    <Container className={classes.root}>
+    <Container style={{ paddingTop: "32px", paddingBottom: "32px" }}>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={12} lg={12} md={12}>
           <Typography
@@ -85,15 +76,16 @@ const FourKeyParts = () => {
                 priključaka
               </Typography>
             </Box>
-            <Typography variant="h6" color="secondary" align="left">
+            <Typography variant="body1" color="secondary" align="left">
               <Link
+                underline="always"
                 onClick={() =>
                   router.push(
                     "/proizvodi?kategorija=Montaža%20i%20zaštita%20hidrauličkih%20creva%20i%20priključaka"
                   )
                 }
               >
-                <a>Detaljnije</a>
+                Detaljnije
               </Link>
             </Typography>
           </Paper>
@@ -110,13 +102,14 @@ const FourKeyParts = () => {
                 elektroinstalacija Dozna sa poklopcem u dimenziji 100mm x 100mm
               </Typography>
             </Box>
-            <Typography variant="h6" color="secondary" align="left">
+            <Typography variant="body1" color="secondary" align="left">
               <Link
+                underline="always"
                 onClick={() =>
                   router.push("/proizvodi?kategorija=Elektroinstalacije")
                 }
               >
-                <a>Detaljnije</a>
+                Detaljnije
               </Link>
             </Typography>
           </Paper>
@@ -133,13 +126,14 @@ const FourKeyParts = () => {
                 dokumentacijom
               </Typography>
             </Box>
-            <Typography variant="h6" color="secondary" align="left">
+            <Typography variant="body1" color="secondary" align="left">
               <Link
+                underline="always"
                 onClick={() =>
                   router.push("/proizvodi?kategorija=Hidrauličke%20Armature")
                 }
               >
-                <a>Detaljnije</a>
+                Detaljnije
               </Link>
             </Typography>
           </Paper>
@@ -155,13 +149,14 @@ const FourKeyParts = () => {
                 Primenjen u montaži vretena na ventil u dimenziji PV NP 8.
               </Typography>
             </Box>
-            <Typography variant="h6" color="primary" align="left">
+            <Typography variant="body1" color="primary" align="left">
               <Link
+                underline="always"
                 onClick={() =>
                   router.push("/proizvodi?kategorija=Sanitarne%20Armature")
                 }
               >
-                <a>Detaljnije</a>
+                Detaljnije
               </Link>
             </Typography>
           </Paper>
