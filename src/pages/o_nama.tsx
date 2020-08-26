@@ -41,8 +41,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     secondBox: {
-      background:
-        "url(/images/Manufacturers-Wholesale-PVC-Blue-Regeneration-Plastic-Granule-PVC-Mold-Plastics-Extrusion13.png) no-repeat center center scroll",
+      background: "url(/images/plastika.png) no-repeat center center scroll",
       backgroundSize: "cover",
       height: "100%",
       width: "auto",

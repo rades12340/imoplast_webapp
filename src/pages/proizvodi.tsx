@@ -155,7 +155,7 @@ const Proizvodi = ({ products, categories }: ProductsProps) => {
     }
   };
 
-  const { data } = useSWR(
+  const { data } = useSWR<Product[]>(
     isProd + "/api/products?kategorija=" + query.kategorija,
     fetcher,
     {
@@ -231,21 +231,19 @@ const Proizvodi = ({ products, categories }: ProductsProps) => {
           ))}
         </div>
         <main className={classes.content}>
-          <AnimatePresence exitBeforeEnter>
-            {data.map((p) => {
-              return (
-                <Link
-                  href={"/proizvodi/[id]"}
-                  as={`/proizvodi/${p.product_id}`}
-                  key={p.product_id}
-                >
-                  <a className={classes.anchorTag}>
-                    <CardProd product={p} />
-                  </a>
-                </Link>
-              );
-            })}
-          </AnimatePresence>
+          {data.map((p) => {
+            return (
+              <Link
+                href={"/proizvodi/[id]"}
+                as={`/proizvodi/${p.product_id}`}
+                key={p.product_id}
+              >
+                <a className={classes.anchorTag}>
+                  <CardProd product={p} />
+                </a>
+              </Link>
+            );
+          })}
         </main>
       </div>
     </Container>
